@@ -1,10 +1,10 @@
 @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700");
 @font-face {
   font-family: 'h5u';
-  src: url("fonts/h5u.eot");
-  src: url("fonts/h5u.eot?#iefix") format("embedded-opentype"), url("fonts/h5u.woff") format("woff"), url("fonts/h5u.ttf") format("truetype"), url("fonts/h5u.svg#h5u") format("svg");
   font-weight: normal;
   font-style: normal; 
+  font-weight: 200;
+  src: local('Source Sans Pro ExtraLight'), local('SourceSansPro-ExtraLight'), url("https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGJCDkYQxybH_Rl7Qv7ee2N4.woff2") format('woff2');
 }
 
 /* Reset */
@@ -41,11 +41,11 @@ body {
 }
 
 li {
-	padding: 0 5px;
 	color: #787877;
 }
 
 .icons li {
+	padding: 0 5px;
 	display: inline-block;
 }
 
@@ -70,7 +70,7 @@ a:hover {
 	padding: 50px;
 	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url("../img/mainBack.jpg");
 	background-size: cover;
-	width: 23%;
+	width: 30%;
 	position: absolute;
 	height: 100%;
 	left: 0;
@@ -84,6 +84,7 @@ a:hover {
 		height: auto;
 		left: auto;
 		top: auto;
+		background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)), url("../img/mainBack.jpg");
 	}
 }
 
@@ -100,8 +101,14 @@ a:hover {
 	right: 0;
 }
 
-.contact-items {
+@media screen and (max-width: 900px) {
+.contact {
+	display: none;
+}
 
+.contact-items {
+	display: block;
+}
 }
 
 img {
@@ -109,6 +116,7 @@ img {
 	border-radius: 5px 25px;
 	width: 100px;
     height: auto;
+    opacity: 0.75;
 }
 
 .me {
@@ -116,9 +124,10 @@ img {
 }
 
 .contents {
-	width: 77%;
+	width: 70%;
 	right: 0;
 	top: 0;
+	padding: 0 5%;
 	position: absolute;
 }
 @media screen and (max-width: 900px) {
@@ -130,12 +139,78 @@ img {
 	}
 }
 
+.content {
+	border-top: solid 2px #efefef;
+}
+
 .header {
-	background: green;
 }
 .tab1 {
-	background: yellow;
 }
 .footer {
-	background: gray;
+}
+
+
+/* Button */
+.button {
+	appearance: none;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	background-color: transparent;
+	border-radius: 0.35em;
+	border: solid 3px #efefef;
+	color: #787878 !important;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 400;
+	height: 3.15em;
+	height: calc(2.75em + 6px);
+	line-height: 2.75em;
+	min-width: 10em;
+	padding: 0 1.5em;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.button:hover {
+	border-color: #49bf9d;
+	color: #49bf9d !important; 
+}
+
+.button:active {
+	background-color: rgba(73, 191, 157, 0.1);
+	border-color: #49bf9d;
+	color: #49bf9d !important;
+}
+
+/* Form */
+input[type="email"], input[type="text"], textarea {
+	appearance: none;
+	background: #f7f7f7;
+	border-radius: 0.35em;
+	border: solid 2px transparent;
+	color: inherit;
+	display: block;
+	outline: 0;
+	padding: 0 0.75em;
+	text-decoration: none;
+	width: 100%;
+}
+
+input[type="email"]:invalid, input[type="text"]:invalid, textarea:invalid {
+	box-shadow: none;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+	border-color: #49bf9d;
+}
+
+input[type="email"], input[type="text"] {
+	height: 2.75em;
+	margin: 10px 0;
+}
+
+textarea {
+	padding: 0.75em;
+	margin: 10px 0;
 }
