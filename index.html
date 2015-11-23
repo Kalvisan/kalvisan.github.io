@@ -1,57 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>About me</title>
+    <title>About me | Kalvisan</title>
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/8895580?v=3&s=50">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
-	<section class="side-bar">
-		<div class="about">
-			<div class="me">
-				<img src="https://avatars3.githubusercontent.com/u/8895580?v=3&s=200"/>
-			</div>
-			<p>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college. My main hobby is programming and creating somthing.</p>
-		</div>
-		<div class="contact">
-			<div class="contact-items">
-				<ul class="icons">
-					<li><a href="https://twitter.com/Kechupslv" class="fa fa-twitter fa-2x"></a></li>
-					<li><a href="https://github.com/Kalvisan" class="fa fa-github fa-2x"></a></li>
-				</ul>
-				<ul class="copyright">
-						<li>© MIT</li>
-						<li>Design, Created: <a href="https://twitter.com/Kechupslv">Kalvisan</a></li>
-						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-				</ul>
-			</div>			
-		</div>
-	</section>
-	<section class="contents">
-		<div class="content header"><h1>Welcome</h1></div>
-		<div class="content tab1"><h1>My Projects</h1></div>
-		<div class="content footer">
-			<h1>Get In Touch</h1>
-				<div class="form">
-					<input class="select" type="text" name="name" id="name" placeholder="Name" />
-					<input class="select" type="email" name="email" id="email" placeholder="Email" />
-					<textarea name="message" id="message" placeholder="Message" rows="4"></textarea>
-				</div>
-			<ul class="actions">
-				<li><a href="#" class="button">Send Message</a></li>
-			</ul>
-		</div>
-	</section>
+<section class="side-bar">
+    <div class="about">
+        <div class="me">
+            <img src="https://avatars3.githubusercontent.com/u/8895580?v=3&s=200"/>
+        </div>
+        <p>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college.</p>
+    </div>
+    <div class="contact">
+        <div class="contact-items">
+            <ul class="icons">
+                <li><a href="https://twitter.com/Kechupslv" class="fa fa-twitter fa-2x"></a></li>
+                <li><a href="https://github.com/Kalvisan" class="fa fa-github fa-2x"></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>© MIT</li>
+                <li>Design, Created: <a href="https://twitter.com/Kechupslv">Kalvisan</a></li>
+                <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<section class="contents">
+    <div id="wall-1" class="image"></div>
+    <div class="content tab1 image"><h2>Hi, I'm Kalvis and this is "About me" website</h2></div>
+
+    <div class="content tab2"><h2>My Projects</h2>
+        <ul>
+            <li>Bla, bla</li>
+            <li>Bla, bla</li>
+            <li>Bla, bla</li>
+            <li>Bla, bla</li>
+        </ul>
+    </div>
+
+    <div class="content tab3">
+        <h2>Get In Touch</h2>
+
+        <div class="forms">
+            <div class="form name">
+                <input class="select" type="text" name="name" id="name" placeholder="Your Name"/>
+            </div>
+            <div class="form email">
+                <input class="select" type="email" name="email" id="email" placeholder="Your Email"/>
+            </div>
+            <textarea name="message" id="message" placeholder="Message" rows="4"></textarea>
+        </div>
+        <ul class="actions">
+            <li><a href="#" class="button">Send Message</a></li>
+        </ul>
+    </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
 <script type="text/javascript">
-
+    $(document).ready(
+            function () {
+                $("body").niceScroll();
+            }
+    );
 </script>
 </body>
 </html>

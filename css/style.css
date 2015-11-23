@@ -20,18 +20,23 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font-weight: 600;
   font-variant: normal;
   text-transform: none;
+	color: #a6a6a6;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
   display: block; 
 }
 
 body {
-  line-height: 1; 
+  line-height: 1;
 }
 
 ol, ul {
   list-style: none; 
+}
+
+h2 {
+	padding: 22px 0;
 }
 
 /* Containers */
@@ -58,11 +63,11 @@ p {
 a {
 	font-weight: 700;
 	text-decoration: none !important;
-	color: #999999 !important;
+	color: #49bf9d !important;
 }
 
 a:hover {
-	color: #49bf9d !important;
+	color: #999999 !important;
 	transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
@@ -70,8 +75,8 @@ a:hover {
 	padding: 50px;
 	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url("../img/mainBack.jpg");
 	background-size: cover;
-	width: 30%;
-	position: absolute;
+	width: 28%;
+	position: fixed;
 	height: 100%;
 	left: 0;
 	top: 0;
@@ -119,16 +124,14 @@ img {
     opacity: 0.75;
 }
 
-.me {
-	background-image: rgba(0, 0, 0, 0.8);
-}
-
 .contents {
-	width: 70%;
+	width: 72%;
 	right: 0;
 	top: 0;
-	padding: 0 5%;
+	/*padding: 0 5%;*/
 	position: absolute;
+	background: #efefef;
+
 }
 @media screen and (max-width: 900px) {
 	.contents {
@@ -140,22 +143,37 @@ img {
 }
 
 .content {
-	border-top: solid 2px #efefef;
+	border-top: solid 2px #49bf9d;
+	text-align: center;
 }
 
-.header {
+#wall-1 {
+
 }
+
 .tab1 {
+	height: 450px;
+	width: 100%;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),url('../img/1.jpg') no-repeat fixed;
+	background-size: cover;
 }
-.footer {
+.tab2 {
+}
+.tab3 {
+}
+
+.form {
+	display: inline-block;
+	width: 49%;
 }
 
 
 /* Button */
 .button {
+	margin: 15px 0;
 	appearance: none;
 	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-	background-color: transparent;
+	background-color: #ebffe5;
 	border-radius: 0.35em;
 	border: solid 3px #efefef;
 	color: #787878 !important;
@@ -186,7 +204,7 @@ img {
 /* Form */
 input[type="email"], input[type="text"], textarea {
 	appearance: none;
-	background: #f7f7f7;
+	background: #e5ffe5;
 	border-radius: 0.35em;
 	border: solid 2px transparent;
 	color: inherit;
