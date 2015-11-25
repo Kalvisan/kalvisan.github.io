@@ -101,7 +101,7 @@ h1 {
     height: 500px;
     width: 100%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
-    url('../img/mainFront.jpg') no-repeat fixed;
+    url('../img/mainFront.JPG') no-repeat fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
