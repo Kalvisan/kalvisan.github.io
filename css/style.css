@@ -121,17 +121,17 @@ h1 {
     padding-top: 22px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
+
 .proj-item {
-    max-width: 250px;
-    flex: 1 1 0;
+    margin: 10px;
     flex-direction: row;
     background: #fff;
 }
 
 .proj-item img {
-    max-width: 250px;
+    width: 300px;
 }
 
 /*Contact part*/
@@ -180,7 +180,7 @@ h1 {
     color: #787878 !important;
     cursor: pointer;
     display: inline-block;
-    font-weight: 400;
+    font-weight: 600;
     height: 3.15em;
     height: calc(2.75em + 6px);
     line-height: 2.75em;
