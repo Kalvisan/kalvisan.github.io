@@ -3,6 +3,27 @@ function href(web) {
     window.location.href = web;
 }
 
+$(this).scroll(function() {
+    $(".nav-item").each(function(index) {
+        if($($(this).attr('scroll')).offset().top - $(window).scrollTop() - 70 <= 0) {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active')
+        }
+    });
+});
+
+$(".nav-item").click(function (event) {
+    event.preventDefault();
+    var dest = 0;
+    if ($($(this).attr('scroll')).offset().top > $(document).height() - $(window).height()) {
+        dest = $(document).height() - $(window).height();
+    } else {
+        dest = $($(this).attr('scroll')).offset().top;
+    }
+    dest = dest - 70;
+    $('html,body').animate({scrollTop: dest}, 1000, 'swing');
+});
+
 $('.hidden').hide();
 
 particlesJS('particles-js',

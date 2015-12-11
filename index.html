@@ -17,9 +17,9 @@
 <section class="menu">
     <div class="navigation">
         <ul class="navigation-bar menu">
-            <li class="nav-item active fa fa-user-secret fa-2x" name="About"></li>
-            <li class="nav-item fa fa-terminal fa-2x" name="Projects"></li>
-            <li class="nav-item fa fa-comment fa-2x" name="Contact Me"></li>
+            <li class="nav-item active fa fa-user-secret fa-2x" name="About" scroll="#about"></li>
+            <li class="nav-item fa fa-terminal fa-2x" name="Projects" scroll="#projects"></li>
+            <li class="nav-item fa fa-comment fa-2x" name="Contact Me" scroll="#contact"></li>
         </ul>
     </div>
 </section>
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="content about">
+    <div class="content about" id="about">
         <h2>About</h2>
         <h6>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college.<br /><br /><br />More about me you can see in bellow links:</h6>
         <ul class="about_me">
@@ -49,7 +49,7 @@
         </ul>
     </div>
 
-    <div class="content projects"><h2>My Projects</h2>
+    <div class="content projects" id="projects"><h2>My Projects</h2>
         <h6>
             <ul class="proj-items">
 
@@ -73,10 +73,10 @@
         </h6>
     </div>
 
-    <div class="content contact">
+    <div class="content contact" id="contact">
         <h2>Contact Me</h2>
 
-        <form action="" class="forms">
+        <form class="forms" action="contact.php" method="post">
             <div class="form name">
                 <input class="select" type="text" name="name" id="name" placeholder="Your Name"/>
             </div>

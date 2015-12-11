@@ -1,3 +1,5 @@
 <?php
 
-echo $_GET['name'];
+echo $_POST['name'];
+echo $_POST['message'];
+echo $_POST['email'];
