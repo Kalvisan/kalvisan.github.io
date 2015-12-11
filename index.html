@@ -17,23 +17,29 @@
 <section class="menu">
     <div class="navigation">
         <ul class="navigation-bar menu">
-            <li class="nav-item active fa fa-user-secret fa-2x"></li>
-            <li class="nav-item fa fa-book fa-2x"></li>
-            <li class="nav-item fa fa-terminal fa-2x"></li>
-            <li class="nav-item fa fa-comment fa-2x"></li>
+            <li class="nav-item active fa fa-user-secret fa-2x" name="About"></li>
+            <li class="nav-item fa fa-terminal fa-2x" name="Projects"></li>
+            <li class="nav-item fa fa-comment fa-2x" name="Contact Me"></li>
         </ul>
     </div>
 </section>
 <section class="contents">
-    <div class="content welcome">
-        <h2>Java/JavaScript developer with a hobby of</h2> <br/>
 
-        <h1>PROGRAMMING</h1>
+    <div class="content welcome">
+        <div id="particles-js">
+        </div>
+
+
+        <div class="main-title">
+            <h2>Programmer with a passion of</h2> <br/>
+
+            <h1>JAVA development</h1>
+        </div>
     </div>
 
     <div class="content about">
         <h2>About</h2>
-        <h6>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college.</h6>
+        <h6>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college.<br /><br /><br />More about me you can see in bellow links:</h6>
         <ul class="about_me">
             <li>
                 <a href="https://dl.dropboxusercontent.com/u/108603958/Curriculum%20Vitae%20-%20Kalvis%20Ko%C4%BCes%C5%86ikovs.docx"><i
@@ -46,25 +52,22 @@
     <div class="content projects"><h2>My Projects</h2>
         <h6>
             <ul class="proj-items">
-                <li class="proj-item">
-                    <img src="img/1.jpg">
 
-                    <div class="text">aaaa</div>
+                <li class="proj-item" style="background: url('img/uzdevumi.png') no-repeat; background-size: 100%;">
+                    <div onclick="href('https://github.com/Kalvisan/Virtualie-Uzdevumi');" class="text">Virtuālie Uzdevumi
+                    </div>
                 </li>
-                <li class="proj-item">
-                    <img src="img/1.jpg">
 
-                    <div class="text">aaaa</div>
+                <li class="proj-item" style="background: url('img/blop.png') no-repeat; background-size: 100%;">
+                    <div class="text" onclick="href('https://github.com/Kalvisan/Blop');">Blop</div>
                 </li>
-                <li class="proj-item">
-                    <img src="img/1.jpg">
 
-                    <div class="text">aaaa</div>
+                <li class="proj-item" style="background: url('img/mainFront.jpg') no-repeat; background-size: auto;">
+                    <div class="text" onclick="href('https://github.com/Kalvisan/SpaceShip');">SpaceShip</div>
                 </li>
-                <li class="proj-item">
-                    <img src="img/1.jpg">
 
-                    <div class="text">aaaa</div>
+                <li class="proj-item" style="background: url('img/mainFront.jpg') no-repeat; background-size: auto;">
+                    <div class="text" onclick="href('/Cosmoo');">Cosmoo</div>
                 </li>
             </ul>
         </h6>
@@ -73,7 +76,7 @@
     <div class="content contact">
         <h2>Contact Me</h2>
 
-        <form action="contact.php" class="forms">
+        <form action="" class="forms">
             <div class="form name">
                 <input class="select" type="text" name="name" id="name" placeholder="Your Name"/>
             </div>
@@ -97,20 +100,16 @@
         <ul class="copyright">
             <li>kechupslv@gmail.com</li>
             <li>Design, Created: <a href="https://twitter.com/Kechupslv">Kalvisan</a></li>
-            <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
         </ul>
     </div>
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.nicescroll.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(
-            function () {
-                $("body").niceScroll();
-            }
-    );
-</script>
+<script src="js/snap.svg-min.js"></script>
+<script src="js/particles.min.js"></script>
+<script src="js/jquery.toolbar.min.js"></script>
+<script src="js/art.js"></script>
 </body>
 </html>

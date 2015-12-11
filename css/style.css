@@ -37,7 +37,7 @@ h2 {
 }
 
 h6 {
-    padding: 10px 0 22px 0;
+    padding: 10px 0 0 0;
 }
 
 h1 {
@@ -57,6 +57,7 @@ h1 {
     height: 70px;
     background: #111;
     position: fixed;
+    box-shadow: 0 1px 5px rgba(0,0,0,.7);
     top: 0;
     left: 0;
     right: 0;
@@ -71,6 +72,7 @@ h1 {
 
 .nav-item {
     padding: 20px;
+    cursor: pointer;
     color: #fff;
     border-left: 1px solid #222;
     text-shadow: 2px 2px #136d53;
@@ -82,6 +84,21 @@ h1 {
 
 .nav-item:hover {
     background: #49bf9d;
+}
+.nav-item:hover:after {
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    text-shadow: none;
+    content: attr(name);
+    left: calc(50% - 110px);
+    top: 70px;
+    position: absolute;
+    z-index: 100;
+    width: 220px;
+    height: 40px;
 }
 
 /*Contents*/
@@ -100,14 +117,24 @@ h1 {
 .welcome {
     height: 500px;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)),
-    url('../img/1.JPG') no-repeat fixed;
+    background: #2f2f2f;
     background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.main-title {
+    z-index: 50;
     color: #ffffff;
+}
+
+#particles-js {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    height: 500px;
 }
 
 /*About part*/
@@ -116,7 +143,7 @@ h1 {
     background: #323232;
 }
 
- /*Projects part*/
+/*Projects part*/
 .proj-items {
     padding-top: 22px;
     display: flex;
@@ -125,13 +152,34 @@ h1 {
 }
 
 .proj-item {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    width: 300px;
+    height: 200px;
     margin: 10px;
-    flex-direction: row;
     background: #fff;
 }
 
-.proj-item img {
-    width: 300px;
+.text:hover {
+    background: rgba(0, 0, 0, .8);
+    color: #b8b8b8;
+    cursor: pointer;
+}
+
+.text {
+    color: transparent;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-top: 80px;
+    font-size: 130%;
+}
+
+@media screen and (max-width: 900px) {
+    .text {
+        color: #b8b8b8;
+        cursor: pointer;
+        background: rgba(0, 0, 0, .8);
+    }
 }
 
 /*Contact part*/
@@ -151,7 +199,7 @@ h1 {
     width: 49%;
 }
 
- /*Footer part*/
+/*Footer part*/
 .footer {
     overflow: hidden;
     padding: 20px 20px;
