@@ -6,20 +6,46 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="angular-material.min.css">
     <link rel="stylesheet" href="md-data-table.min.css">
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body ng-app="myApplication" ng-controller="myController">
 
+<div class="menu-button" ng-click="openMenu()">
+    <i class="fa fa-bars fa-2x"></i>
+</div>
+
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Opcijas un Iestatijumi</h1>
+    </md-toolbar>
+    <md-content ng-controller="RightCtrl" layout-padding>
+
+        <md-switch ng-model="data.cb1" aria-label="Switch 1">
+            Switch 1
+        </md-switch>
+        <md-switch ng-model="data.cb2" aria-label="Switch 2" ng-true-value="'yup'" ng-false-value="'nope'"
+                   class="md-warn">
+            Switch 2
+        </md-switch>
+        <md-switch ng-disabled="true" aria-label="Disabled switch" ng-model="disabledModel">
+            Switch (Disabled)
+        </md-switch>
+        <md-switch ng-disabled="true" aria-label="Disabled active switch" ng-model="data.cb4">
+            Switch (Disabled, Active)
+        </md-switch>
+
+    </md-content>
+</md-sidenav>
 
 <md-card>
-    <md-content laout="column" flex>
+    <div class="header" ng-click="tab1 = !tab1">
+        <h2 class="md-title">Pievienot Uzdevumu</h2>
+    </div>
+    <md-content laout="column" flex ng-show="!tab1">
         <form novalidate name="form">
-            <md-data-table-toolbar>
-                <h2 class="md-title">Pievienot Uzdevumu</h2>
-            </md-data-table-toolbar>
             <md-content layout-gt-xs="row" layout-padding>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Persona</label>
@@ -34,7 +60,7 @@
                         <md-option ng-value="prio" ng-repeat="prio in data.prio">{{prio.name}}</md-option>
                     </md-select>
                 </md-input-container>
-                <div flex-gt-xs layout-padding>
+                <div flex-gt-xs>
                     <md-datepicker ng-model="new.dateTill" md-placeholder="Datums līdz"></md-datepicker>
                 </div>
             </md-content>
@@ -55,23 +81,23 @@
 
 
 <md-card>
+    <div class="header">
+        <h2 class="md-title">Uzdevumi</h2>
+    </div>
     <md-content laout="column" flex>
-        <md-data-table-toolbar>
-            <h2 class="md-title">Uzdevumi</h2>
-        </md-data-table-toolbar>
 
         <md-data-table-container layout-padding>
             <table md-data-table md-progress="deferred">
                 <thead md-order="vards">
                 <tr>
-                    <th name="ID"></th>
+                    <th name="ID" order-by="id"></th>
                     <th name="Persona" order-by="vards"></th>
                     <th name="Uzdevums"></th>
                     <th name="Statuss"></th>
                     <th name="Prioritāte"></th>
-                    <th name="Datums Līdz"></th>
-                    <th name="Sākuma Datums"></th>
-                    <th name="Beigu Datums"></th>
+                    <th name="Datums Līdz" order-by="t_date"></th>
+                    <th name="Sākuma Datums" order-by="s_date"></th>
+                    <th name="Beigu Datums" order-by="e_date"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -101,18 +127,22 @@
 
 
 <!-- Angular Material requires Angular.js Libraries -->
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-animate.min.js"></script>
+<script src="angular-aria.min.js"></script>
+<script src="angular-material.min.js"></script>
 <script src="md-data-table.min.js"></script>
 <script src="../js/jquery-2.1.4.min.js"></script>
 <script>
 
     (function () {
         angular.module('myApplication', ['md.data.table', 'ngMaterial'])
-                .controller('myController', function ($scope, $window) {
+                .controller('myController', function ($scope, $mdSidenav) {
+                    $scope.openMenu = buildToggler('right');
+                    $scope.isOpenRight = function () {
+                        return $mdSidenav('right').isOpen();
+                    };
+
                     $.getJSON('data.json', function (data) {
                         $scope.data = data;
                         $scope.$digest();
@@ -130,8 +160,39 @@
 
                     $scope.addTask = function () {
                         console.log($scope.new);
+                    };
+
+
+                    function debounce(func, wait, context) {
+                        var timer;
+                        return function debounced() {
+                            var context = $scope,
+                                    args = Array.prototype.slice.call(arguments);
+                            $timeout.cancel(timer);
+                            timer = $timeout(function () {
+                                timer = undefined;
+                                func.apply(context, args);
+                            }, wait || 10);
+                        };
                     }
 
+                    function buildDelayedToggler(navID) {
+                        return debounce(function () {
+                            $mdSidenav(navID)
+                                    .toggle();
+                        }, 200);
+                    }
+
+                    function buildToggler(navID) {
+                        return function () {
+                            $mdSidenav(navID)
+                                    .toggle();
+                        }
+                    }
+                }).controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+                    $scope.close = function () {
+                        $mdSidenav('right').close();
+                    };
                 })
                 .config(function ($mdThemingProvider) {
                     $mdThemingProvider.theme('default')
