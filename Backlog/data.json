@@ -1,0 +1,66 @@
+{
+  "uzdevumi": [
+    {
+      "id": 1,
+      "vards": "Kalvis",
+      "uzd": "Uztaisīt backlog formu, kur glabāt visus uzdevumus",
+      "stat": "3",
+      "prio": "3",
+      "t_date": "12/19/2015",
+      "s_date": "12/19/2015",
+      "e_date": "12/19/2015"
+    },
+    {
+      "id": 2,
+      "vards": "Ričards",
+      "uzd": "Uztaisīt mērkaķīti uz Blender programmas",
+      "stat": "3",
+      "prio": "2",
+      "t_date": "12/20/2015",
+      "s_date": "12/19/2015",
+      "e_date": "12/19/2015"
+    }
+  ],
+  "users": [
+    {
+      "name": "Kalvis"
+    },
+    {
+      "name": "Rūdolfs"
+    },
+    {
+      "name": "Matīss"
+    },
+    {
+      "name": "Ričards"
+    }
+  ],
+  "stat": [
+    {
+      "id": 1,
+      "name": "Neaktīvs"
+    },
+    {
+      "id": 2,
+      "name": "Progresā"
+    },
+    {
+      "id": 3,
+      "name": "Pabeigts"
+    }
+  ],
+  "prio": [
+    {
+      "id": 1,
+      "name": "Zems"
+    },
+    {
+      "id": 2,
+      "name": "Vidējs"
+    },
+    {
+      "id": 3,
+      "name": "Augsts"
+    }
+  ]
+}

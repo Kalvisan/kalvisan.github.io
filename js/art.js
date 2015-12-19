@@ -1,4 +1,3 @@
-$("body").niceScroll();
 function href(web) {
     window.location.href = web;
 }

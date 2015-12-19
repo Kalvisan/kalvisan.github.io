@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Backlog by Kalvisan</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="md-data-table.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-app="myApplication" ng-controller="myController">
+
+
+<md-card>
+    <md-content laout="column" flex>
+        <form novalidate name="form">
+            <md-data-table-toolbar>
+                <h2 class="md-title">Pievienot Uzdevumu</h2>
+            </md-data-table-toolbar>
+            <md-content layout-gt-xs="row" layout-padding>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Persona</label>
+                    <md-select ng-model="new.persona" required>
+                        <md-option ng-value="personas" ng-repeat="personas in data.users">{{personas.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Prioritāte</label>
+                    <md-select ng-model="new.prio" required>
+                        <md-option ng-value="prio" ng-repeat="prio in data.prio">{{prio.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <div flex-gt-xs layout-padding>
+                    <md-datepicker ng-model="new.dateTill" md-placeholder="Datums līdz"></md-datepicker>
+                </div>
+            </md-content>
+
+            <div layout-padding>
+                <md-input-container class="md-block">
+                    <label>Uzdevums</label>
+                    <textarea required ng-model="new.uzd" columns="1" md-maxlength="150" rows="5"></textarea>
+                </md-input-container>
+
+                <md-button ng-disabled="!form.$valid" class="md-raised md-primary" ng-click="addTask()">Pievienot
+                </md-button>
+            </div>
+            <md-progress-linear md-mode="query" ng-show="form.$valid"></md-progress-linear>
+        </form>
+    </md-content>
+</md-card>
+
+
+<md-card>
+    <md-content laout="column" flex>
+        <md-data-table-toolbar>
+            <h2 class="md-title">Uzdevumi</h2>
+        </md-data-table-toolbar>
+
+        <md-data-table-container layout-padding>
+            <table md-data-table md-progress="deferred">
+                <thead md-order="vards">
+                <tr>
+                    <th name="ID"></th>
+                    <th name="Persona" order-by="vards"></th>
+                    <th name="Uzdevums"></th>
+                    <th name="Statuss"></th>
+                    <th name="Prioritāte"></th>
+                    <th name="Datums Līdz"></th>
+                    <th name="Sākuma Datums"></th>
+                    <th name="Beigu Datums"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="info in data.uzdevumi | orderBy: vards">
+                    <td>{{info.id}}</td>
+                    <td>{{info.vards}}</td>
+                    <td>{{info.uzd}}</td>
+                    <td>
+                        <md-select ng-model="stats">
+                            <md-option ng-value="stat" ng-repeat="stat in data.stat">{{stat.name}}</md-option>
+                        </md-select>
+                    </td>
+                    <td>
+                        <md-select ng-model="prior">
+                            <md-option ng-value="prio" ng-repeat="prio in data.prio">{{prio.name}}</md-option>
+                        </md-select>
+                    </td>
+                    <td>{{info.t_date}}</td>
+                    <td>{{info.s_date}}</td>
+                    <td>{{info.e_date}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </md-data-table-container>
+    </md-content>
+</md-card>
+
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<script src="md-data-table.min.js"></script>
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script>
+
+    (function () {
+        angular.module('myApplication', ['md.data.table', 'ngMaterial'])
+                .controller('myController', function ($scope, $window) {
+                    $.getJSON('data.json', function (data) {
+                        $scope.data = data;
+                        $scope.$digest();
+                    });
+
+                    $scope.myDate = new Date();
+                    $scope.new = {
+                        persona: '',
+                        prio: '',
+                        stat: '',
+                        uzd: ''
+                    };
+
+                    $scope.new.stat = "Neaktīvs";
+
+                    $scope.addTask = function () {
+                        console.log($scope.new);
+                    }
+
+                })
+                .config(function ($mdThemingProvider) {
+                    $mdThemingProvider.theme('default')
+                            .primaryPalette('light-green')
+                            .accentPalette('deep-orange');
+                    $mdThemingProvider.theme('dark').dark();
+                });
+    })();
+
+</script>
+</body>
+</html>
