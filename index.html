@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>About me | Kalvisan</title>
+    <title>Par mani | Kalvisan</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -12,7 +12,7 @@
           href="css/font-awesome.min.css">
 </head>
 <body>
-<!--<img src="https://avatars3.githubusercontent.com/u/8895580?v=3&s=200"/>-->
+<div class="background"></div>
 <section class="menu">
     <div class="navigation">
         <ul class="navigation-bar menu">
@@ -30,62 +30,75 @@
 
 
         <div class="main-title">
-            <h2>Programmer with a passion of</h2> <br/>
+            <h2>Puisis ar aizrautību par</h2> <br/>
 
-            <h1>JAVA development</h1>
+            <h1>Programmēšanu un tehnoloģijām</h1>
         </div>
     </div>
 
     <div class="content about" id="about">
-        <h2>About</h2>
-        <h6>I'm Kalvis or as you know me Kalvisan. I'm programmer and a student at Riga Technical college.<br /><br /><br />More about me you can see in bellow links:</h6>
-        <ul class="about_me">
-            <li>
-                <a href="https://dl.dropboxusercontent.com/u/108603958/Curriculum%20Vitae%20-%20Kalvis%20Ko%C4%BCes%C5%86ikovs.docx"><i
-                        class="fa fa-file-text-o"></i> Download CV [Latvian]</a></li>
-            <li><a href="https://www.linkedin.com/in/kalvis-kolesnikovs-45264785"><i class="fa fa-linkedin"></i> Linked
-                In</a></li>
-        </ul>
+        <div class="wrap">
+			<h2>Īsumā par mani</h2>
+			<h6>Mani sauc Kalvis, vai kā mani internetā dēvē Kalvisan. Pašlaik vēl mācos RTK (Rīgas Tehniskajā koledžā), kur mācos par programmētāju. Ikdienā aizraujos ar zinātni un programmēšanu, patīk viss saistībā ar tehnoloģijām un pasaules izpēti. <br /><br /><br />Vairāk par mani šajos linkos:</h6>
+			<ul class="about_me">
+				<li>
+					<a href="https://dl.dropboxusercontent.com/u/108603958/Curriculum%20Vitae%20-%20Kalvis%20Ko%C4%BCes%C5%86ikovs.docx"><i
+							class="fa fa-file-text-o"></i> Lejupielādēt CV [Latviski]</a></li>
+				<li><a href="https://www.linkedin.com/in/kalvis-kolesnikovs-45264785"><i class="fa fa-linkedin"></i> Linked In</a></li>
+			</ul>
+		</div>
     </div>
 
-    <div class="content projects" id="projects"><h2>My Projects</h2>
-        <h6>
+    <div class="content projects" id="projects"><h2>Mani projekti</h2>
+        <div class="wrap">
             <ul class="proj-items">
 
-                <li class="proj-item" style="background: url('img/uzdevumi.png') no-repeat; background-size: 100%;">
+                <li class="proj-item" style="background-image: url('img/opening_screen.jpg'); background-size: 100% 100%;">
+                    <div onclick="href('http://globalgamejam.org/2017/games/oh-no-generators-gonna-blow');" class="text">Oh No! The generator's gonna blow!</div>
+                </li>
+				
+				<li class="proj-item" style="background-image: url('img/aed.png'); background-size: 100% 100%;">
+                    <div onclick="href('http://aedbaltics.com/');" class="text">AED Baltics</div>
+                </li>
+				
+                <li class="proj-item" style="background-image: url('img/uzdevumi.png'); background-size: 100% 100%;">
                     <div onclick="href('https://github.com/Kalvisan/Virtualie-Uzdevumi');" class="text">Virtuālie Uzdevumi
                     </div>
                 </li>
 
-                <li class="proj-item" style="background: url('img/blop.png') no-repeat; background-size: 100%;">
+                <li class="proj-item" style="background-image: url('img/blop.png'); background-size: 100% 100%;">
                     <div class="text" onclick="href('https://github.com/Kalvisan/Blop');">Blop</div>
                 </li>
 
-                <li class="proj-item" style="background: url('img/mainFront.jpg') no-repeat; background-size: auto;">
+                <li class="proj-item" style="background-image: url('img/space.jpg'); background-size: 100% 100%;">
                     <div class="text" onclick="href('https://github.com/Kalvisan/SpaceShip');">SpaceShip</div>
                 </li>
 
-                <li class="proj-item" style="background: url('img/mainFront.jpg') no-repeat; background-size: auto;">
-                    <div class="text" onclick="href('/Cosmoo');">Cosmoo</div>
+                <li class="proj-item" style="background-image: url('img/backlog.png'); background-size: 100% 100%;">
+                    <div class="text" onclick="href('https://kalvisan.github.io/Backlog');">Simple AngularJS Backlog</div>
                 </li>
             </ul>
-        </h6>
+        </div>
     </div>
 
     <div class="content contact" id="contact">
-        <h2>Contact Me</h2>
+        <h2>Sazinies ar mani</h2>
 
         <form class="forms" action="/contact.php" method="get">
-            <div class="form name">
-                <input class="select" type="text" name="name" id="name" placeholder="Your Name"/>
+            <div class="form-main">
+				<div class="form name">
+					<input class="select" type="text" name="name" id="name" placeholder="Jūsu vārds"/>
+				</div>
+				
+				<div class="form email">
+					<input class="select" type="email" name="email" id="email" placeholder="Jūsu e-pasts"/>
+				</div>
             </div>
-            <div class="form email">
-                <input class="select" type="email" name="email" id="email" placeholder="Your Email"/>
-            </div>
-            <textarea name="message" id="message" placeholder="Message" rows="4"></textarea>
+
+            <textarea name="message" id="message" placeholder="Ziņa" rows="4"></textarea>
 
             <ul class="actions">
-                <li><input type="submit" value="Send Message" class="button"/></li>
+                <li><input type="submit" value="Sūtīt ziņu" class="button"/></li>
             </ul>
         </form>
     </div>
@@ -97,8 +110,8 @@
             <li><a href="https://www.linkedin.com/in/kalvis-kolesnikovs-45264785" class="fa fa-linkedin fa-2x"></a></li>
         </ul>
         <ul class="copyright">
-            <li>kechupslv@gmail.com</li>
-            <li>Design, Created: <a href="https://twitter.com/Kechupslv">Kalvisan</a></li>
+            <li>kalvis.kolesnikovs@gmail.com</li>
+            <li>Izstrādāja: <a href="https://twitter.com/Kechupslv">Kalvisan</a></li>
         </ul>
     </div>
 </section>
