@@ -42,6 +42,7 @@
 
 	// MEOW - is not an easter egg
 	var t = [77, 69, 79, 87],
+	    	tt = [83, 72, 73, 66, 65],
 		d = [];
 	var r = function (m, a) {
 		return Math.floor(Math.random() * 100) + (m - a) + a;
@@ -56,11 +57,23 @@
 		i.setAttribute('style', 'position: absolute; left: ' + r(0, 100) + '%; top: ' + r(0, 100) + '%;');
 		doc.body.appendChild(i);
 	};
+	var p = function () {
+		if (!window.atob)
+			return false;
+
+		var u = atob('aHR0cHM6Ly9pbWFnZXMuZG9nLmNlby9icmVlZHMvc2hpYmEvc2hpYmEt') + r(1, 14) + '.jpg';
+		var i = doc.createElement(atob('aW1n'));
+		i.src = u;
+		i.setAttribute('style', 'position: absolute; left: ' + r(0, 100) + '%; top: ' + r(0, 100) + '%;');
+		doc.body.appendChild(i);
+	};
 	window.onkeyup = function (e) {
 		if (t.equals(d))
 			return s();
+		if (tt.equals(d))
+			return p();
 
-		if (d.length === +!0 && d[0] !== t[0])
+		if (d.length === +!0 && (d[0] !== t[0] || d[0] !== tt[0]))
 			d = [];
 		e.which && d.push(e.which);
 	};
