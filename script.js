@@ -41,27 +41,19 @@
 	animate(0);
 
 	// MEOW - is not an easter egg
+	// And WOOF - is not easter egg too
 	var t = [77, 69, 79, 87],
-	    	tt = [83, 72, 73, 66, 65],
+	    	tt = [87, 79, 79, 70],
 		d = [];
 	var r = function (m, a) {
 		return Math.floor(Math.random() * 100) + (m - a) + a;
 	};
-	var s = function () {
+	var s = function (x) {
 		if (!window.atob)
 			return false;
-
-		var u = atob('aHR0cDovL3BsYWNla2l0dGVuLmNvbS8=') + r(2e2, 4e2) + '/' + r(1e2, 6e2);
-		var i = doc.createElement(atob('aW1n'));
-		i.src = u;
-		i.setAttribute('style', 'position: absolute; left: ' + r(0, 100) + '%; top: ' + r(0, 100) + '%;');
-		doc.body.appendChild(i);
-	};
-	var p = function () {
-		if (!window.atob)
-			return false;
-
-		var u = atob('aHR0cHM6Ly9pbWFnZXMuZG9nLmNlby9icmVlZHMvc2hpYmEvc2hpYmEt') + r(1, 14) + '.jpg';
+		var l = atob('aHR0cDovL3BsYWNla2l0dGVuLmNvbS8=');
+		if (x) l = atob('aHR0cHM6Ly9wbGFjZWRvZy5uZXQv');
+		var u = l + r(2e2, 4e2) + '/' + r(1e2, 6e2);
 		var i = doc.createElement(atob('aW1n'));
 		i.src = u;
 		i.setAttribute('style', 'position: absolute; left: ' + r(0, 100) + '%; top: ' + r(0, 100) + '%;');
@@ -71,7 +63,7 @@
 		if (t.equals(d))
 			return s();
 		if (tt.equals(d))
-			return p();
+			return s(1);
 
 		if (d.length === +!0 && (d[0] !== t[0] || d[0] !== tt[0]))
 			d = [];
