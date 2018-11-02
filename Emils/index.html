@@ -16,13 +16,25 @@
     <script src="js/MTLLoader.js"></script>
     <script src="js/OBJLoader.js"></script>
 <script>
-    // GLOBAL VARIABLES
+    // PROPERTY NUMBERS
+	const HOW_MANY_PLANTES = 2;
+	const HOW_MANY_SPACE = 5;
+
+	// GLOBAL VARIABLES
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
     var mouseX = 0, mouseY = 0;
     var emils = null;
-    var random_space = getRandom(3);
-    var random_planet = getRandom(2);
+	var progress = document.createElement('div');
+	var progressBar = document.createElement('div');
+
+    // LOADER
+	progress.appendChild(progressBar);
+	document.body.appendChild(progress);
+	var manager = new THREE.LoadingManager();
+	manager.onProgress = function ( item, loaded, total ) {
+		progressBar.style.width = (loaded / total * 100) + '%';
+	};
 
     // RENDERER
     var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas'), antialias: true});
@@ -39,7 +51,7 @@
     // scene.background = texture;
 
     // SKYBOX
-    var skybox_path = 'img/skybox/'+ getRandom(5) +'/';
+    var skybox_path = 'img/skybox/'+ getRandom(HOW_MANY_SPACE) +'/';
     var skybox_urls = [
         skybox_path + 'right.png',
         skybox_path + 'left.png',
@@ -60,7 +72,7 @@
     // PLANET
     var geometry = new THREE.SphereGeometry(30, 32, 32);
     var material = new THREE.MeshPhongMaterial();
-    material.map = new THREE.TextureLoader().load('img/planet_'+ random_planet +'.jpg');
+    material.map = new THREE.TextureLoader().load('img/planet_'+ getRandom(HOW_MANY_PLANTES) +'.jpg');
     var planet = new THREE.Mesh(geometry, material);
     planet.position.z = 0;
     scene.add(planet);
@@ -91,8 +103,8 @@
             // emils.position.y += ( -mouseY - emils.position.y ) * 0.00001;
             // emils.rotation.y += 0.03;
             // camera.lookAt( emils.position );
-            camera.position.x += ( mouseX - camera.position.x ) * 0.001;
-            camera.position.y += ( mouseY - camera.position.y ) * 0.001;
+            camera.position.x += ( mouseX - camera.position.x ) * 0.00001;
+            camera.position.y += ( mouseY - camera.position.y ) * 0.00001;
             camera.lookAt( emils.position );
         }
 
@@ -100,8 +112,7 @@
         renderer.render( scene, camera );
     }
 
-    function toScreenPosition(obj, camera)
-    {
+    function toScreenPosition(obj, camera) {
         var vector = new THREE.Vector3();
 
         var widthHalf = 0.5*renderer.context.canvas.width;
@@ -118,7 +129,7 @@
             x: vector.x,
             y: vector.y
         };
-    };
+    }
 
     function onDocumentMouseMove( event ) {
         mouseX = ( event.clientX - windowHalfX  );
