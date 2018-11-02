@@ -13,6 +13,8 @@
 <body>
     <canvas id="canvas"></canvas>
     <script src="./js/three.min.js"></script>
+    <script src="./js/inflate.min.js"></script>
+    <script src="./js/FBXLoader.js"></script>
     <script src="./js/MTLLoader.js"></script>
     <script src="./js/OBJLoader.js"></script>
 <script>
@@ -22,6 +24,8 @@
 
 	// GLOBAL VARIABLES
 	var renderer, scene, camera;
+	var mixers = [];
+	var clock = new THREE.Clock();
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
 	var mouseX = 0, mouseY = 0;
@@ -76,7 +80,7 @@
 		scene.add(light);
 
 		// POINT LIGHT
-		var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+		let pointLight = new THREE.PointLight( 0xffffff, 0.8 );
 		camera.add( pointLight );
 		scene.add( camera );
 
@@ -86,18 +90,24 @@
 		material.map = new THREE.TextureLoader().load('./img/planet_'+ getRandom(HOW_MANY_PLANTES) +'.jpg');
 		planet = new THREE.Mesh(geometry, material);
 		planet.position.z = 0;
-		// scene.add(planet);
+		scene.add(planet);
 
 		// MODEL
-		new THREE.MTLLoader().load('./models/male/male02_dds.mtl', function(materials) {
-			materials.preload();
-			new THREE.OBJLoader().setMaterials(materials).load('./models/male/male02.obj', function(obj){
-				// obj.position.z = 160;
-				// obj.rotation.y += 90;
-				obj.position.z = -500;
-				emils = obj;
-				scene.add(obj);
+		let loader = new THREE.FBXLoader();
+		loader.load('./models/Samba Dancing.fbx', function (object) {
+			object.mixer = new THREE.AnimationMixer(object);
+			mixers.push(object.mixer);
+			let action = object.mixer.clipAction(object.animations[0]);
+			action.play();
+			object.traverse(function (child) {
+				if (child.isMesh) {
+					child.receiveShadow = true;
+				}
 			});
+			object.scale.set(0.06, 0.06, 0.06);
+			object.position.z = 100;
+			emils = object;
+			scene.add(object);
 		});
 	}
 
@@ -122,6 +132,11 @@
         }
 
         planet.rotation.y += 0.0003;
+		if (mixers.length > 0) {
+			for (let i = 0; i < mixers.length; i++) {
+				mixers[i].update(clock.getDelta());
+			}
+		}
     }
 
     function toScreenPosition(obj, camera) {
