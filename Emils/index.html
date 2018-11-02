@@ -66,16 +66,15 @@
     scene.add(planet);
 
     // MODEL
-	new THREE.OBJLoader().load('models/emils.obj', function(obj){
-		obj.position.z = 160;
-		obj.rotation.y += 90;
-		emils = obj;
-		scene.add(obj);
-	});
-	// .setMaterials(materials)
-    //new THREE.MTLLoader().load('models/emils.mtl', function(materials) { 
-    //    materials.preload();
-    //});
+    new THREE.MTLLoader().load('models/emils.mtl', function(materials) {
+       materials.preload();
+		new THREE.OBJLoader().setMaterials(materials).load('models/emils.obj', function(obj){
+			obj.position.z = 160;
+			obj.rotation.y += 90;
+			emils = obj;
+			scene.add(obj);
+		});
+    });
 
     // RENDER
     render();
