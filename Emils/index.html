@@ -19,27 +19,25 @@
 <script src="./js/inflate.min.js"></script>
 <script src="./js/FBXLoader.js"></script>
 
-<script src="./js/effects/EffectComposer.js"></script>
-<script src="./js/effects/ShaderPass.js"></script>
-<script src="./js/effects/RenderPass.js"></script>
 <script src="./js/effects/CopyShader.js"></script>
-
-<script src="./js/effects/SepiaShader.js"></script>
 <script src="./js/effects/DigitalGlitch.js"></script>
-<script src="./js/effects/GlitchPass.js"></script>
 
-<script src="./js/effects/AnaglyphEffect.js"></script>
+<script src="./js/effects/postprocessing/EffectComposer.js"></script>
+<script src="./js/effects/postprocessing/RenderPass.js"></script>
+<script src="./js/effects/postprocessing/MaskPass.js"></script>
+<script src="./js/effects/postprocessing/ShaderPass.js"></script>
+<script src="./js/effects/postprocessing/GlitchPass.js"></script>
 <script>
 	if (WEBGL.isWebGLAvailable() === false) {
 		document.body.appendChild(WEBGL.getWebGLErrorMessage());
 	}
 	// PROPERTY NUMBERS
-	const HOW_MANY_PLANTES = 2;
-	const HOW_MANY_SPACE = 5;
+	const HOW_MANY_PLANTES = 6;
+	const HOW_MANY_SPACE = 3;
 	const SPEED_UP = getRandom(10);
 
 	// GLOBAL VARIABLES
-	var renderer, scene, camera, effect;
+	var renderer, scene, camera, composer;
 	var mixers = [];
 	var clock = new THREE.Clock();
 	var windowHalfX = window.innerWidth / 2;
@@ -62,14 +60,17 @@
 		camera.position.z = 180;
 		scene = new THREE.Scene();
 
-		// EFFECT
-		effect = new THREE.AnaglyphEffect(renderer);
-		effect.setSize(window.innerWidth, window.innerHeight);
+		// GLITCH EFFECT
+		composer = new THREE.EffectComposer(renderer);
+		composer.addPass(new THREE.RenderPass(scene, camera));
+		let glitchPass = new THREE.GlitchPass();
+		glitchPass.renderToScreen = true;
+		composer.addPass(glitchPass);
 	}
 
 	function initMesh() {
 		// LOADER
-		const loadingManager = new THREE.LoadingManager(function() {
+		const loadingManager = new THREE.LoadingManager(function () {
 			const loadingScreen = document.getElementById('loading-screen');
 			loadingScreen.classList.add('fade-out');
 		});
@@ -98,10 +99,10 @@
 		scene.add(light);
 
 		// POINT LIGHT
-		let pointLight = new THREE.PointLight(0xffffff, 0.8);
-		pointLight.position.z = 100;
-		camera.add(pointLight);
-		scene.add(camera);
+		// let pointLight = new THREE.PointLight(0xffffff, 0.8);
+		// pointLight.position.z = 100;
+		// camera.add(pointLight);
+		// scene.add(camera);
 
 		// PLANET
 		let geometry = new THREE.SphereGeometry(10, 32, 32);
@@ -136,11 +137,13 @@
 	// RENDER
 	function render() {
 		requestAnimationFrame(render);
-		effect.render(scene, camera);
+		composer.render();
 
 		if (emils) {
 			camera.position.x += (mouseX - camera.position.x) * 0.0001;
 			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
+
+			// camera rotation limits
 			if (camera.position.x < -30) camera.position.x = -30;
 			if (camera.position.x > 30) camera.position.x = 30;
 			if (camera.position.y < -10) camera.position.y = -10;
@@ -190,7 +193,7 @@
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		effect.setSize(window.innerWidth, window.innerHeight);
+		composer.setSize( window.innerWidth, window.innerHeight );
 	}
 
 	// EVENTS
