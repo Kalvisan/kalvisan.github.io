@@ -46,7 +46,7 @@
 	// PROPERTY NUMBERS
 	const HOW_MANY_PLANTES = 2;
 	const HOW_MANY_SPACE = 5;
-	const SPEED_UP = getRandom(2);
+	const SPEED_UP = getRandom(10);
 
 	// GLOBAL VARIABLES
 	var renderer, scene, camera, effect;
@@ -68,7 +68,7 @@
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(window.innerWidth, window.innerHeight);
 
-		camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 2000);
+		camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 2000);
 		camera.position.z = 180;
 		scene = new THREE.Scene();
 
@@ -108,11 +108,13 @@
 		scene.add(camera);
 
 		// PLANET
-		let geometry = new THREE.SphereGeometry(30, 32, 32);
+		let geometry = new THREE.SphereGeometry(10, 32, 32);
 		let material = new THREE.MeshPhongMaterial();
 		material.map = new THREE.TextureLoader().load('./img/planet_' + getRandom(HOW_MANY_PLANTES) + '.jpg');
 		planet = new THREE.Mesh(geometry, material);
+		planet.scale.set(5, 5, 5);
 		planet.position.x = -1 * (20 + getRandom(30));
+		planet.position.z = -70;
 		scene.add(planet);
 
 		// MODEL
@@ -127,7 +129,7 @@
 					child.receiveShadow = true;
 				}
 			});
-			object.scale.set(0.08, 0.08, 0.08);
+			object.scale.set(0.04, 0.04, 0.04);
 			object.position.z = 100;
 			object.rotation.y = 90;
 			emils = object;
@@ -141,18 +143,12 @@
 		effect.render(scene, camera);
 
 		if (emils) {
-			// var x = 0, y = 0;
-			// var emils_position = toScreenPosition(emils, camera);
-			// if (emils_position.x < 0) x = 1;
-			// if (emils_position.x > window.innerWidth) x = -1;
-			// if (emils_position.y < 0) y = 1;
-			// if (emils_position.y > window.innerHeight) y = -1;
-			// emils.position.x += (( mouseX - emils.position.x ) * 0.00001);
-			// emils.position.y += ( -mouseY - emils.position.y ) * 0.00001;
-			// emils.rotation.y += 0.03;
-			// camera.lookAt( emils.position );
-			camera.position.x += -(mouseX - camera.position.x) * 0.0001;
-			camera.position.y += (mouseY - camera.position.y) * 0.0001;
+			camera.position.x += (mouseX - camera.position.x) * 0.0001;
+			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
+			if(camera.position.x < -30) camera.position.x = -30;
+			if(camera.position.x > 30) camera.position.x = 30;
+			if(camera.position.y < -10) camera.position.y = -10;
+			if(camera.position.y > 10) camera.position.y = 10;
 			camera.lookAt(emils.position);
 		}
 
