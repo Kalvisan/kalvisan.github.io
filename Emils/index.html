@@ -4,23 +4,13 @@
 	<meta charset=utf-8>
 	<title>Emīla kosmiskā saikne</title>
 	<link rel="shortcut icon" type="image/png" href="./img/favicon.ico"/>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		body {
-			overflow: hidden;
-		}
-
-		canvas {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
+	<link rel="stylesheet" href="./css/global.css">
 </head>
 <body>
+<section id="loading-screen">
+	<div id="loader"></div>
+</section>
+
 <canvas id="canvas"></canvas>
 
 <script src="./js/three.min.js"></script>
@@ -78,6 +68,12 @@
 	}
 
 	function initMesh() {
+		// LOADER
+		const loadingManager = new THREE.LoadingManager(function() {
+			const loadingScreen = document.getElementById('loading-screen');
+			loadingScreen.classList.add('fade-out');
+		});
+
 		// // BACKGROUND
 		// var texture = new THREE.TextureLoader().load( "img/space_"+ random_space +".jpg" );
 		// scene.background = texture;
@@ -92,7 +88,7 @@
 			skybox_path + 'front.png',
 			skybox_path + 'back.png'
 		];
-		let skybox = new THREE.CubeTextureLoader().load(skybox_urls);
+		let skybox = new THREE.CubeTextureLoader(loadingManager).load(skybox_urls);
 		skybox.format = THREE.RGBFormat;
 		skybox.mapping = THREE.CubeReflectionMapping;
 		scene.background = skybox;
@@ -110,7 +106,7 @@
 		// PLANET
 		let geometry = new THREE.SphereGeometry(10, 32, 32);
 		let material = new THREE.MeshPhongMaterial();
-		material.map = new THREE.TextureLoader().load('./img/planet_' + getRandom(HOW_MANY_PLANTES) + '.jpg');
+		material.map = new THREE.TextureLoader(loadingManager).load('./img/planet_' + getRandom(HOW_MANY_PLANTES) + '.jpg');
 		planet = new THREE.Mesh(geometry, material);
 		planet.scale.set(5, 5, 5);
 		planet.position.x = -1 * (20 + getRandom(30));
@@ -118,7 +114,7 @@
 		scene.add(planet);
 
 		// MODEL
-		let loader = new THREE.FBXLoader();
+		let loader = new THREE.FBXLoader(loadingManager);
 		loader.load('./models/emils.fbx', function (object) {
 			// object.mixer = new THREE.AnimationMixer(object);
 			// mixers.push(object.mixer);
@@ -145,10 +141,10 @@
 		if (emils) {
 			camera.position.x += (mouseX - camera.position.x) * 0.0001;
 			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
-			if(camera.position.x < -30) camera.position.x = -30;
-			if(camera.position.x > 30) camera.position.x = 30;
-			if(camera.position.y < -10) camera.position.y = -10;
-			if(camera.position.y > 10) camera.position.y = 10;
+			if (camera.position.x < -30) camera.position.x = -30;
+			if (camera.position.x > 30) camera.position.x = 30;
+			if (camera.position.y < -10) camera.position.y = -10;
+			if (camera.position.y > 10) camera.position.y = 10;
 			camera.lookAt(emils.position);
 		}
 
