@@ -110,7 +110,7 @@
 		material.map = new THREE.TextureLoader(loadingManager).load('./img/planet_' + getRandom(HOW_MANY_PLANTES) + '.jpg');
 		planet = new THREE.Mesh(geometry, material);
 		planet.scale.set(5, 5, 5);
-		planet.position.x = -1 * (20 + getRandom(30));
+		planet.position.x = -(20 + getRandom(30));
 		planet.position.z = -70;
 		scene.add(planet);
 
