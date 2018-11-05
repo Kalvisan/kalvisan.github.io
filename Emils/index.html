@@ -18,7 +18,7 @@
 
 <canvas id="canvas"></canvas>
 <div class="top-panel">
-	<input type="range" value="1" min="0" max="1" step="0.1" onchange="onVolumeChange(this)" />
+	<input type="range" value="1" min="0" max="1" step="0.1" onchange="onVolumeChange(this)"/>
 </div>
 
 <script src="./js/jquery.min.js"></script>
@@ -43,7 +43,7 @@
 	// PROPERTY NUMBERS
 	const HOW_MANY_PLANTES = 6;
 	const HOW_MANY_SPACE = 3;
-	const CAMERA_ZOOM_SPEED = 0.01;
+	const CAMERA_ZOOM_SPEED = 0.0005;
 	const CAMERA_ZOOM = 20;
 	const SPEED_UP = getRandom(10);
 
@@ -53,7 +53,7 @@
 	var clock = new THREE.Clock();
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
-	var mouseX = 0, mouseY = 0, angle = 0;
+	var mouseX = 0, mouseY = 0;
 
 	var emils, planet, sound;
 
@@ -129,20 +129,21 @@
 			});
 			object.scale.set(0.04, 0.04, 0.04);
 			object.position.z = 100;
-			object.rotation.y = 90;
+			object.position.y = -10;
+			object.rotation.y = 1.5;
 			emils = object;
 			scene.add(object);
 		});
 
 		// SOUND
 		let listener = new THREE.AudioListener();
-		sound = new THREE.PositionalAudio( listener );
+		sound = new THREE.PositionalAudio(listener);
 		let audioLoader = new THREE.AudioLoader(loadingManager);
-		audioLoader.load( './sounds/sound_1.mp3', function( buffer ) {
+		audioLoader.load('./sounds/sound_1.mp3', function (buffer) {
 			emils.add(listener);
-			sound.setBuffer( buffer );
-			sound.setLoop( true );
-			sound.setRefDistance( 3 );
+			sound.setBuffer(buffer);
+			sound.setLoop(true);
+			sound.setRefDistance(3);
 			sound.play();
 		});
 	}
@@ -151,7 +152,6 @@
 	function render() {
 		requestAnimationFrame(render);
 		composer.render();
-		angle += CAMERA_ZOOM_SPEED;
 		if (emils) {
 			camera.position.x += (mouseX - camera.position.x) * 0.0001;
 			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
@@ -161,7 +161,7 @@
 			if (camera.position.x > 30) camera.position.x = 30;
 			if (camera.position.y < -10) camera.position.y = -10;
 			if (camera.position.y > 10) camera.position.y = 10;
-			camera.position.z = 180 + Math.sin(angle) * CAMERA_ZOOM;
+			camera.position.z = 180 + Math.sin(Date.now() * CAMERA_ZOOM_SPEED) * CAMERA_ZOOM;
 			camera.lookAt(emils.position);
 		}
 
@@ -188,7 +188,7 @@
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		composer.setSize( window.innerWidth, window.innerHeight );
+		composer.setSize(window.innerWidth, window.innerHeight);
 	}
 
 	function onVolumeChange(obj) {
