@@ -16,9 +16,10 @@
 
 <canvas id="canvas"></canvas>
 <div class="top-panel">
-	<input type="range" value="1" min="0" max="1" step="0.1" />
+	<input type="range" value="1" min="0" max="1" step="0.1" onchange="onVolumeChange(this)" />
 </div>
 
+<script src="./js/jquery.min.js"></script>
 <script src="./js/three.min.js"></script>
 <script src="./js/WebGL.js"></script>
 
@@ -40,6 +41,8 @@
 	// PROPERTY NUMBERS
 	const HOW_MANY_PLANTES = 6;
 	const HOW_MANY_SPACE = 3;
+	const CAMERA_ZOOM_SPEED = 0.01;
+	const CAMERA_ZOOM = 20;
 	const SPEED_UP = getRandom(10);
 
 	// GLOBAL VARIABLES
@@ -48,7 +51,7 @@
 	var clock = new THREE.Clock();
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
-	var mouseX = 0, mouseY = 0;
+	var mouseX = 0, mouseY = 0, angle = 0;
 
 	var emils, planet, sound;
 
@@ -146,7 +149,7 @@
 	function render() {
 		requestAnimationFrame(render);
 		composer.render();
-
+		angle += CAMERA_ZOOM_SPEED;
 		if (emils) {
 			camera.position.x += (mouseX - camera.position.x) * 0.0001;
 			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
@@ -156,6 +159,7 @@
 			if (camera.position.x > 30) camera.position.x = 30;
 			if (camera.position.y < -10) camera.position.y = -10;
 			if (camera.position.y > 10) camera.position.y = 10;
+			camera.position.z = 180 + Math.sin(angle) * CAMERA_ZOOM;
 			camera.lookAt(emils.position);
 		}
 
@@ -183,6 +187,10 @@
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		composer.setSize( window.innerWidth, window.innerHeight );
+	}
+
+	function onVolumeChange(obj) {
+		sound.setVolume($(obj).val());
 	}
 
 	// EVENTS
