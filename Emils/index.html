@@ -43,6 +43,7 @@
 	// PROPERTY NUMBERS
 	const HOW_MANY_PLANTES = 6;
 	const HOW_MANY_SPACE = 3;
+	const HOW_MANY_AUDIO = 2;
 	const CAMERA_ZOOM_SPEED = 0.0005;
 	const CAMERA_ZOOM = 20;
 	const SPEED_UP = getRandom(10);
@@ -139,7 +140,7 @@
 		let listener = new THREE.AudioListener();
 		sound = new THREE.PositionalAudio(listener);
 		let audioLoader = new THREE.AudioLoader(loadingManager);
-		audioLoader.load('./sounds/sound_1.mp3', function (buffer) {
+		audioLoader.load('./sounds/sound_' + getRandom(HOW_MANY_AUDIO) + '.mp3', function (buffer) {
 			emils.add(listener);
 			sound.setBuffer(buffer);
 			sound.setLoop(true);
