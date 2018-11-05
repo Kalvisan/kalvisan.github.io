@@ -24,6 +24,15 @@ canvas {
 	transition: 1s opacity;
 }
 
+.headphones {
+	position: absolute;
+	left: 50%;
+	top: 25%;
+	width: 150px;
+	height: 150px;
+	margin: -75px 0 0 -75px;
+}
+
 #loading-screen.fade-out {
 	opacity: 0;
 }
@@ -38,7 +47,7 @@ canvas {
 	margin: -75px 0 0 -75px;
 	border-radius: 50%;
 	border: 3px solid transparent;
-	border-top-color: #F5F5F5;
+	border-top-color: #9E9E9E;
 	-webkit-animation: spin 2s linear infinite;
 	animation: spin 2s linear infinite;
 }
@@ -91,4 +100,11 @@ canvas {
 		-ms-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
+}
+
+.top-panel {
+	z-index: 9999 !important;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }

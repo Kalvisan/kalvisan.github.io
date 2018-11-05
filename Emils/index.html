@@ -8,10 +8,16 @@
 </head>
 <body>
 <section id="loading-screen">
+	<div class="headphones">
+		<img src="./img/headphone.svg" width="100%" height="100%">
+	</div>
 	<div id="loader"></div>
 </section>
 
 <canvas id="canvas"></canvas>
+<div class="top-panel">
+	<input type="range" value="1" min="0" max="1" step="0.1" />
+</div>
 
 <script src="./js/three.min.js"></script>
 <script src="./js/WebGL.js"></script>
@@ -44,7 +50,7 @@
 	var windowHalfY = window.innerHeight / 2;
 	var mouseX = 0, mouseY = 0;
 
-	var emils, planet;
+	var emils, planet, sound;
 
 	function init() {
 		// RENDERER
@@ -75,10 +81,6 @@
 			loadingScreen.classList.add('fade-out');
 		});
 
-		// // BACKGROUND
-		// var texture = new THREE.TextureLoader().load( "img/space_"+ random_space +".jpg" );
-		// scene.background = texture;
-
 		// SKYBOX
 		let skybox_path = './img/skybox/' + getRandom(HOW_MANY_SPACE) + '/';
 		let skybox_urls = [
@@ -97,12 +99,6 @@
 		// LIGHTS
 		let light = new THREE.AmbientLight(0xffffff, 0.5);
 		scene.add(light);
-
-		// POINT LIGHT
-		// let pointLight = new THREE.PointLight(0xffffff, 0.8);
-		// pointLight.position.z = 100;
-		// camera.add(pointLight);
-		// scene.add(camera);
 
 		// PLANET
 		let geometry = new THREE.SphereGeometry(10, 32, 32);
@@ -132,6 +128,18 @@
 			emils = object;
 			scene.add(object);
 		});
+
+		// SOUND
+		let listener = new THREE.AudioListener();
+		sound = new THREE.PositionalAudio( listener );
+		let audioLoader = new THREE.AudioLoader(loadingManager);
+		audioLoader.load( './sounds/sound_1.mp3', function( buffer ) {
+			emils.add(listener);
+			sound.setBuffer( buffer );
+			sound.setLoop( true );
+			sound.setRefDistance( 3 );
+			sound.play();
+		});
 	}
 
 	// RENDER
@@ -157,25 +165,6 @@
 				mixers[i].update(clock.getDelta());
 			}
 		}
-	}
-
-	function toScreenPosition(obj, camera) {
-		let vector = new THREE.Vector3();
-
-		let widthHalf = 0.5 * renderer.context.canvas.width;
-		let heightHalf = 0.5 * renderer.context.canvas.height;
-
-		obj.updateMatrixWorld();
-		vector.setFromMatrixPosition(obj.matrixWorld);
-		vector.project(camera);
-
-		vector.x = (vector.x * widthHalf) + widthHalf;
-		vector.y = -(vector.y * heightHalf) + heightHalf;
-
-		return {
-			x: vector.x,
-			y: vector.y
-		};
 	}
 
 	function getRandom(max) {
