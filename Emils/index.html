@@ -27,6 +27,7 @@
 
 <script src="./js/inflate.min.js"></script>
 <script src="./js/FBXLoader.js"></script>
+<script src="./js/ColladaLoader.js"></script>
 
 <script src="./js/effects/CopyShader.js"></script>
 <script src="./js/effects/DigitalGlitch.js"></script>
@@ -117,23 +118,31 @@
 		scene.add(planet);
 
 		// MODEL
-		let loader = new THREE.FBXLoader(loadingManager);
-		loader.load('./models/emils.fbx', function (object) {
-			// object.mixer = new THREE.AnimationMixer(object);
-			// mixers.push(object.mixer);
-			// let action = object.mixer.clipAction(object.animations[0]);
-			// action.play();
-			object.traverse(function (child) {
-				if (child.isMesh) {
-					child.receiveShadow = true;
-				}
-			});
-			object.scale.set(0.04, 0.04, 0.04);
-			object.position.z = 100;
-			object.position.y = -10;
-			object.rotation.y = 1.5;
-			emils = object;
-			scene.add(object);
+		// let loader = new THREE.FBXLoader(loadingManager);
+		// loader.load('./models/emils.fbx', function (object) {
+		// 	// object.mixer = new THREE.AnimationMixer(object);
+		// 	// mixers.push(object.mixer);
+		// 	// let action = object.mixer.clipAction(object.animations[0]);
+		// 	// action.play();
+		// 	object.traverse(function (child) {
+		// 		if (child.isMesh) {
+		// 			child.receiveShadow = true;
+		// 		}
+		// 	});
+		// 	object.scale.set(0.04, 0.04, 0.04);
+		// 	object.position.z = 100;
+		// 	object.position.y = -10;
+		// 	object.rotation.y = 0;
+		// 	emils = object;
+		// 	scene.add(object);
+		// });
+
+		// MODEL
+		var loader = new THREE.ColladaLoader(loadingManager);
+		loader.load('./models/emils.dae', function (collada) {
+			emils = collada.scene;
+			emils.scale.set(15, 15, 15);
+			scene.add(emils);
 		});
 
 		// SOUND
