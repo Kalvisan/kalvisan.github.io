@@ -27,7 +27,7 @@
 
 <script src="./js/inflate.min.js"></script>
 <script src="./js/FBXLoader.js"></script>
-<script src="./js/ColladaLoader.js"></script>
+<script src="./js/OBJLoader.js"></script>
 
 <script src="./js/effects/CopyShader.js"></script>
 <script src="./js/effects/DigitalGlitch.js"></script>
@@ -45,8 +45,9 @@
 	const HOW_MANY_PLANTES = 6;
 	const HOW_MANY_SPACE = 3;
 	const HOW_MANY_AUDIO = 2;
+	const HOW_MANY_MOONS = 5;
 	const CAMERA_ZOOM_SPEED = 0.0005;
-	const CAMERA_ZOOM = 20;
+	const CAMERA_ZOOM = 10;
 	const SPEED_UP = getRandom(10);
 
 	// GLOBAL VARIABLES
@@ -118,31 +119,23 @@
 		scene.add(planet);
 
 		// MODEL
-		// let loader = new THREE.FBXLoader(loadingManager);
-		// loader.load('./models/emils.fbx', function (object) {
-		// 	// object.mixer = new THREE.AnimationMixer(object);
-		// 	// mixers.push(object.mixer);
-		// 	// let action = object.mixer.clipAction(object.animations[0]);
-		// 	// action.play();
-		// 	object.traverse(function (child) {
-		// 		if (child.isMesh) {
-		// 			child.receiveShadow = true;
-		// 		}
-		// 	});
-		// 	object.scale.set(0.04, 0.04, 0.04);
-		// 	object.position.z = 100;
-		// 	object.position.y = -10;
-		// 	object.rotation.y = 0;
-		// 	emils = object;
-		// 	scene.add(object);
-		// });
-
-		// MODEL
-		var loader = new THREE.ColladaLoader(loadingManager);
-		loader.load('./models/emils.dae', function (collada) {
-			emils = collada.scene;
-			emils.scale.set(15, 15, 15);
-			scene.add(emils);
+		let loader = new THREE.OBJLoader(loadingManager);
+		loader.load('./models/human.obj', function (object) {
+			// object.mixer = new THREE.AnimationMixer(object);
+			// mixers.push(object.mixer);
+			// let action = object.mixer.clipAction(object.animations[0]);
+			// action.play();
+			// object.traverse(function (child) {
+			// 	if (child.isMesh) {
+			// 		child.receiveShadow = true;
+			// 	}
+			// });
+			object.scale.set(0.1, 0.1, 0.1);
+			object.position.z = 110;
+			object.rotation.x = -1.5;
+			object.cursor = 'pointer';
+			emils = object;
+			scene.add(object);
 		});
 
 		// SOUND
@@ -150,7 +143,7 @@
 		sound = new THREE.PositionalAudio(listener);
 		let audioLoader = new THREE.AudioLoader(loadingManager);
 		audioLoader.load('./sounds/sound_' + getRandom(HOW_MANY_AUDIO) + '.mp3', function (buffer) {
-			emils.add(listener);
+			camera.add(listener);
 			sound.setBuffer(buffer);
 			sound.setLoop(true);
 			sound.setRefDistance(3);
@@ -172,7 +165,10 @@
 			if (camera.position.y < -10) camera.position.y = -10;
 			if (camera.position.y > 10) camera.position.y = 10;
 			camera.position.z = 180 + Math.sin(Date.now() * CAMERA_ZOOM_SPEED) * CAMERA_ZOOM;
-			camera.lookAt(emils.position);
+			var x = emils.position.x;
+			var y = emils.position.y;
+			var z = emils.position.z;
+			camera.lookAt(x, y + 10, z);
 		}
 
 		planet.rotation.y += 0.0003 * SPEED_UP;
