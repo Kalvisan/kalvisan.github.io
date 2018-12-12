@@ -42,10 +42,6 @@
 		document.body.appendChild(WEBGL.getWebGLErrorMessage());
 	}
 	// PROPERTY NUMBERS
-	const HOW_MANY_PLANTES = 6;
-	const HOW_MANY_SPACE = 3;
-	const HOW_MANY_AUDIO = 2;
-	const HOW_MANY_MOONS = 5;
 	const CAMERA_ZOOM_SPEED = 0.0005;
 	const CAMERA_ZOOM = 10;
 	const SPEED_UP = getRandom(10);
@@ -90,7 +86,7 @@
 		});
 
 		// SKYBOX
-		let skybox_path = './img/skybox/' + getRandom(HOW_MANY_SPACE) + '/';
+		let skybox_path = './img/skybox/';
 		let skybox_urls = [
 			skybox_path + 'right.png',
 			skybox_path + 'left.png',
@@ -111,7 +107,7 @@
 		// PLANET
 		let geometry = new THREE.SphereGeometry(10, 32, 32);
 		let material = new THREE.MeshPhongMaterial();
-		material.map = new THREE.TextureLoader(loadingManager).load('./img/planet_' + getRandom(HOW_MANY_PLANTES) + '.jpg');
+		material.map = new THREE.TextureLoader(loadingManager).load('./img/planet.jpg');
 		planet = new THREE.Mesh(geometry, material);
 		planet.scale.set(5, 5, 5);
 		planet.position.x = -(20 + getRandom(30));
@@ -142,7 +138,7 @@
 		let listener = new THREE.AudioListener();
 		sound = new THREE.PositionalAudio(listener);
 		let audioLoader = new THREE.AudioLoader(loadingManager);
-		audioLoader.load('./sounds/sound_' + getRandom(HOW_MANY_AUDIO) + '.mp3', function (buffer) {
+		audioLoader.load('./sounds/sound.mp3', function (buffer) {
 			camera.add(listener);
 			sound.setBuffer(buffer);
 			sound.setLoop(true);
@@ -157,13 +153,10 @@
 		composer.render();
 		if (emils) {
 			camera.position.x += (mouseX - camera.position.x) * 0.0001;
-			camera.position.y += -(mouseY - camera.position.y) * 0.00005;
 
 			// camera rotation limits
 			if (camera.position.x < -30) camera.position.x = -30;
 			if (camera.position.x > 30) camera.position.x = 30;
-			if (camera.position.y < -10) camera.position.y = -10;
-			if (camera.position.y > 10) camera.position.y = 10;
 			camera.position.z = 180 + Math.sin(Date.now() * CAMERA_ZOOM_SPEED) * CAMERA_ZOOM;
 			var x = emils.position.x;
 			var y = emils.position.y;
