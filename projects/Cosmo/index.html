@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>Emīla kosmiskā saikne</title>
+	<link rel="shortcut icon" type="image/png" href="./img/favicon.ico"/>
+	<link rel="stylesheet" href="./css/global.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+</head>
+<body>
+<section id="loading-screen">
+	<div class="headphones">
+		<img src="./img/headphone.svg" width="100%" height="100%">
+	</div>
+	<div id="loader"></div>
+</section>
+
+<canvas id="canvas"></canvas>
+<div class="top-panel">
+	<input type="range" value="1" min="0" max="1" step="0.1" onchange="onVolumeChange(this)"/>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/three.min.js"></script>
+<script src="./js/WebGL.js"></script>
+
+<script src="./js/inflate.min.js"></script>
+<script src="./js/FBXLoader.js"></script>
+<script src="./js/OBJLoader.js"></script>
+
+<script src="./js/effects/CopyShader.js"></script>
+<script src="./js/effects/DigitalGlitch.js"></script>
+
+<script src="./js/effects/postprocessing/EffectComposer.js"></script>
+<script src="./js/effects/postprocessing/RenderPass.js"></script>
+<script src="./js/effects/postprocessing/MaskPass.js"></script>
+<script src="./js/effects/postprocessing/ShaderPass.js"></script>
+<script src="./js/effects/postprocessing/GlitchPass.js"></script>
+<script>
+	if (WEBGL.isWebGLAvailable() === false) {
+		document.body.appendChild(WEBGL.getWebGLErrorMessage());
+	}
+	// PROPERTY NUMBERS
+	const CAMERA_ZOOM_SPEED = 0.0005;
+	const CAMERA_ZOOM = 10;
+	const SPEED_UP = getRandom(10);
+
+	// GLOBAL VARIABLES
+	var renderer, scene, camera, composer;
+	var mixers = [];
+	var clock = new THREE.Clock();
+	var windowHalfX = window.innerWidth / 2;
+	var windowHalfY = window.innerHeight / 2;
+	var mouseX = 0, mouseY = 0;
+
+	var emils, planet, sound;
+
+	function init() {
+		// RENDERER
+		renderer = new THREE.WebGLRenderer({
+			canvas: document.getElementById('canvas'),
+			antialias: true
+		});
+		renderer.setClearColor(0x000000);
+		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setSize(window.innerWidth, window.innerHeight);
+
+		camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 2000);
+		camera.position.z = 180;
+		scene = new THREE.Scene();
+
+		// GLITCH EFFECT
+		composer = new THREE.EffectComposer(renderer);
+		composer.addPass(new THREE.RenderPass(scene, camera));
+		let glitchPass = new THREE.GlitchPass();
+		glitchPass.renderToScreen = true;
+		composer.addPass(glitchPass);
+	}
+
+	function initMesh() {
+		// LOADER
+		const loadingManager = new THREE.LoadingManager(function () {
+			const loadingScreen = document.getElementById('loading-screen');
+			loadingScreen.classList.add('fade-out');
+		});
+
+		// SKYBOX
+		let skybox_path = './img/skybox/';
+		let skybox_urls = [
+			skybox_path + 'right.png',
+			skybox_path + 'left.png',
+			skybox_path + 'top.png',
+			skybox_path + 'bottom.png',
+			skybox_path + 'front.png',
+			skybox_path + 'back.png'
+		];
+		let skybox = new THREE.CubeTextureLoader(loadingManager).load(skybox_urls);
+		skybox.format = THREE.RGBFormat;
+		skybox.mapping = THREE.CubeReflectionMapping;
+		scene.background = skybox;
+
+		// LIGHTS
+		let light = new THREE.AmbientLight(0xffffff, 0.5);
+		scene.add(light);
+
+		// PLANET
+		let geometry = new THREE.SphereGeometry(10, 32, 32);
+		let material = new THREE.MeshPhongMaterial();
+		material.map = new THREE.TextureLoader(loadingManager).load('./img/planet.jpg');
+		planet = new THREE.Mesh(geometry, material);
+		planet.scale.set(5, 5, 5);
+		planet.position.x = -(20 + getRandom(30));
+		planet.position.z = -70;
+		scene.add(planet);
+
+		// MODEL
+		let loader = new THREE.OBJLoader(loadingManager);
+		loader.load('./models/human.obj', function (object) {
+			// object.mixer = new THREE.AnimationMixer(object);
+			// mixers.push(object.mixer);
+			// let action = object.mixer.clipAction(object.animations[0]);
+			// action.play();
+			// object.traverse(function (child) {
+			// 	if (child.isMesh) {
+			// 		child.receiveShadow = true;
+			// 	}
+			// });
+			object.scale.set(0.1, 0.1, 0.1);
+			object.position.z = 110;
+			object.rotation.x = -1.5;
+			object.cursor = 'pointer';
+			emils = object;
+			scene.add(object);
+		});
+
+		// SOUND
+		let listener = new THREE.AudioListener();
+		sound = new THREE.PositionalAudio(listener);
+		let audioLoader = new THREE.AudioLoader(loadingManager);
+		audioLoader.load('./sounds/sound.mp3', function (buffer) {
+			camera.add(listener);
+			sound.setBuffer(buffer);
+			sound.setLoop(true);
+			sound.setRefDistance(3);
+			sound.play();
+		});
+	}
+
+	// RENDER
+	function render() {
+		requestAnimationFrame(render);
+		composer.render();
+		if (emils) {
+			camera.position.x += (mouseX - camera.position.x) * 0.0001;
+
+			// camera rotation limits
+			if (camera.position.x < -30) camera.position.x = -30;
+			if (camera.position.x > 30) camera.position.x = 30;
+			camera.position.z = 180 + Math.sin(Date.now() * CAMERA_ZOOM_SPEED) * CAMERA_ZOOM;
+			var x = emils.position.x;
+			var y = emils.position.y;
+			var z = emils.position.z;
+			camera.lookAt(x, y + 10, z);
+		}
+
+		planet.rotation.y += 0.0003 * SPEED_UP;
+		if (mixers.length > 0) {
+			for (let i = 0; i < mixers.length; i++) {
+				mixers[i].update(clock.getDelta());
+			}
+		}
+	}
+
+	function getRandom(max) {
+		return Math.floor(Math.random() * Math.floor(max)) + 1;
+	}
+
+	function onDocumentMouseMove(event) {
+		mouseX = (event.clientX - windowHalfX);
+		mouseY = (event.clientY - windowHalfY);
+	}
+
+	function onWindowResize() {
+		windowHalfX = window.innerWidth / 2;
+		windowHalfY = window.innerHeight / 2;
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		composer.setSize(window.innerWidth, window.innerHeight);
+	}
+
+	function onVolumeChange(obj) {
+		sound.setVolume($(obj).val());
+	}
+
+	// EVENTS
+	document.addEventListener('mousemove', onDocumentMouseMove, false);
+	window.addEventListener('resize', onWindowResize, false);
+
+	// FINAL FUNCTIONS
+	init();
+	initMesh();
+	render();
+</script>
+</body>
+</html>

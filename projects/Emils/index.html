@@ -10,22 +10,17 @@
 </head>
 <body>
 <section id="loading-screen">
-	<div class="headphones">
-		<img src="./img/headphone.svg" width="100%" height="100%">
-	</div>
 	<div id="loader"></div>
 </section>
 
 <canvas id="canvas"></canvas>
-<div class="top-panel">
-	<input type="range" value="1" min="0" max="1" step="0.1" onchange="onVolumeChange(this)"/>
-</div>
 
 <script src="./js/jquery.min.js"></script>
 <script src="./js/three.min.js"></script>
 <script src="./js/WebGL.js"></script>
 
 <script src="./js/inflate.min.js"></script>
+<script src="./js/MTLLoader.js"></script>
 <script src="./js/FBXLoader.js"></script>
 <script src="./js/OBJLoader.js"></script>
 
@@ -41,6 +36,14 @@
 	if (WEBGL.isWebGLAvailable() === false) {
 		document.body.appendChild(WEBGL.getWebGLErrorMessage());
 	}
+	var models = {
+		human: {
+			obj: "./models/Citplanetitis.obj",
+			mtl: "./models/Citplanetitis.mtl",
+			mesh: null,
+		}
+	};
+	var meshes = {};
 	// PROPERTY NUMBERS
 	const CAMERA_ZOOM_SPEED = 0.0005;
 	const CAMERA_ZOOM = 10;
@@ -54,7 +57,7 @@
 	var windowHalfY = window.innerHeight / 2;
 	var mouseX = 0, mouseY = 0;
 
-	var emils, planet, sound;
+	var planet, sound;
 
 	function init() {
 		// RENDERER
@@ -80,10 +83,7 @@
 
 	function initMesh() {
 		// LOADER
-		const loadingManager = new THREE.LoadingManager(function () {
-			const loadingScreen = document.getElementById('loading-screen');
-			loadingScreen.classList.add('fade-out');
-		});
+		const loadingManager = new THREE.LoadingManager(afterLoadManager);
 
 		// SKYBOX
 		let skybox_path = './img/skybox/';
@@ -112,55 +112,53 @@
 		planet.scale.set(5, 5, 5);
 		planet.position.x = -(20 + getRandom(30));
 		planet.position.z = -70;
-		scene.add(planet);
+		// scene.add(planet);
 
-		// MODEL
-		let loader = new THREE.OBJLoader(loadingManager);
-		loader.load('./models/human.obj', function (object) {
-			// object.mixer = new THREE.AnimationMixer(object);
-			// mixers.push(object.mixer);
-			// let action = object.mixer.clipAction(object.animations[0]);
-			// action.play();
-			// object.traverse(function (child) {
-			// 	if (child.isMesh) {
-			// 		child.receiveShadow = true;
-			// 	}
-			// });
-			object.scale.set(0.1, 0.1, 0.1);
-			object.position.z = 110;
-			object.rotation.x = -1.5;
-			object.cursor = 'pointer';
-			emils = object;
-			scene.add(object);
-		});
+		// MODELS
+		for(var _key in models) {
+			(function(key){
+				var mtlLoader = new THREE.MTLLoader(loadingManager);
+				mtlLoader.load(models[key].mtl, function(materials){
+					materials.preload();
+					var objLoader = new THREE.OBJLoader(loadingManager);
+					objLoader.setMaterials(materials);
+					objLoader.load(models[key].obj, function(mesh){
 
-		// SOUND
-		let listener = new THREE.AudioListener();
-		sound = new THREE.PositionalAudio(listener);
-		let audioLoader = new THREE.AudioLoader(loadingManager);
-		audioLoader.load('./sounds/sound.mp3', function (buffer) {
-			camera.add(listener);
-			sound.setBuffer(buffer);
-			sound.setLoop(true);
-			sound.setRefDistance(3);
-			sound.play();
-		});
+						mesh.traverse(function(node) {
+							if(node instanceof THREE.Mesh) {
+								node.castShadow = false;
+								node.receiveShadow = true;
+							}
+						});
+						models[key].mesh = mesh;
+						scene.add(mesh);
+					})
+				});
+			})(_key);
+		}
+	}
+
+	function afterLoadManager() {
+		const loadingScreen = document.getElementById('loading-screen');
+		loadingScreen.classList.add('fade-out');
+		models.human.mesh.scale.set(10, 10, 10);
+		models.human.mesh.position.z = 110;
 	}
 
 	// RENDER
 	function render() {
 		requestAnimationFrame(render);
 		composer.render();
-		if (emils) {
-			camera.position.x += (mouseX - camera.position.x) * 0.0001;
+		if (models.human.mesh) {
+			camera.position.x += (mouseX - camera.position.x) * 0.00003;
 
 			// camera rotation limits
 			if (camera.position.x < -30) camera.position.x = -30;
 			if (camera.position.x > 30) camera.position.x = 30;
 			camera.position.z = 180 + Math.sin(Date.now() * CAMERA_ZOOM_SPEED) * CAMERA_ZOOM;
-			var x = emils.position.x;
-			var y = emils.position.y;
-			var z = emils.position.z;
+			var x = models.human.mesh.position.x;
+			var y = models.human.mesh.position.y;
+			var z = models.human.mesh.position.z;
 			camera.lookAt(x, y + 10, z);
 		}
 
