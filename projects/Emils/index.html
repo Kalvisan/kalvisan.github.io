@@ -28,7 +28,6 @@
 <script src="./js/WebGL.js"></script>
 
 <script src="./js/inflate.min.js"></script>
-<script src="./js/MTLLoader.js"></script>
 <script src="./js/FBXLoader.js"></script>
 <script src="./js/OBJLoader.js"></script>
 
@@ -47,7 +46,7 @@
 	var models = {
 		human: {
 			obj: "./models/Emils_Kocers.obj",
-			mtl: "./models/Biksu gatavas teksturas.png",
+			mat: "./models/Emils_Kocers.png",
 			mesh: null,
 		}
 	};
@@ -125,15 +124,14 @@
 		// MODELS
 		for(var _key in models) {
 			(function(key){
+				var material = null;
+				if(models[key].mat) {
+					var textureLoader = new THREE.TextureLoader(loadingManager);
+					var map = textureLoader.load(models[key].mat);
+					material = new THREE.MeshPhongMaterial({map: map});
+				}
 				var objLoader = new THREE.OBJLoader(loadingManager);
 				objLoader.load(models[key].obj, function(mesh){
-					var material = null;
-					if(models[key].mtl) {
-						var textureLoader = new THREE.TextureLoader();
-						var map = textureLoader.load(models[key].mtl);
-						material = new THREE.MeshPhongMaterial({map: map});
-					}
-
 					mesh.traverse(function(node) {
 						if(node instanceof THREE.Mesh) {
 							node.castShadow = false;
