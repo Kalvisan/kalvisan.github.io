@@ -46,8 +46,8 @@
 	}
 	var models = {
 		human: {
-			obj: "./models/Citplanetitis.obj",
-			mtl: "./models/Citplanetitis.mtl",
+			obj: "./models/Emils_Kocers.obj",
+			mtl: "./models/Biksu gatavas teksturas.png",
 			mesh: null,
 		}
 	};
@@ -125,22 +125,25 @@
 		// MODELS
 		for(var _key in models) {
 			(function(key){
-				var mtlLoader = new THREE.MTLLoader(loadingManager);
-				mtlLoader.load(models[key].mtl, function(materials){
-					materials.preload();
-					var objLoader = new THREE.OBJLoader(loadingManager);
-					objLoader.setMaterials(materials);
-					objLoader.load(models[key].obj, function(mesh){
+				var objLoader = new THREE.OBJLoader(loadingManager);
+				objLoader.load(models[key].obj, function(mesh){
+					var material = null;
+					if(models[key].mtl) {
+						var textureLoader = new THREE.TextureLoader();
+						var map = textureLoader.load(models[key].mtl);
+						material = new THREE.MeshPhongMaterial({map: map});
+					}
 
-						mesh.traverse(function(node) {
-							if(node instanceof THREE.Mesh) {
-								node.castShadow = false;
-								node.receiveShadow = true;
-							}
-						});
-						models[key].mesh = mesh;
-						scene.add(mesh);
-					})
+					mesh.traverse(function(node) {
+						if(node instanceof THREE.Mesh) {
+							node.castShadow = false;
+							node.receiveShadow = true;
+							if(material)
+								node.material = material;
+						}
+					});
+					models[key].mesh = mesh;
+					scene.add(mesh);
 				});
 			})(_key);
 		}
