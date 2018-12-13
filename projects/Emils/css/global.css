@@ -118,13 +118,24 @@ canvas {
 	flex-direction: row;
 	width: 100% !important;
 	margin: 0 auto;
-	padding-top: 50px;
+	padding-top: 40px;
+}
+
+@media only screen and (max-width: 800px) {
+	#navigation ul {
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+	}
+}
+
+#navigation ul li {
+	margin: 15px;
 }
 
 #navigation ul a {
 	color: white;
 	font-size: 40px;
-	margin: 0 15px;
 }
 
 .glitch {
