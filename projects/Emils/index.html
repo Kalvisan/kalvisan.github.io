@@ -12,7 +12,7 @@
 <section id="loading-screen">
 	<div id="loader"></div>
 </section>
-<nav id="navigation">
+<nav id="navigation" style="display:none">
 	<ul>
 		<li><a href="/" class="glitch" title="Home">Home</a></li>
 		<li><a href="/projects" class="glitch" title="Projects">Projects</a></li>
@@ -120,7 +120,7 @@
 		planet.scale.set(5, 5, 5);
 		planet.position.x = -(20 + getRandom(30));
 		planet.position.z = -70;
-		// scene.add(planet);
+		scene.add(planet);
 
 		// MODELS
 		for(var _key in models) {
@@ -147,6 +147,7 @@
 	}
 
 	function afterLoadManager() {
+		$('#navigation').show();
 		const loadingScreen = document.getElementById('loading-screen');
 		loadingScreen.classList.add('fade-out');
 		models.human.mesh.scale.set(10, 10, 10);
