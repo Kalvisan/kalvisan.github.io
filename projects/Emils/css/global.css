@@ -108,3 +108,92 @@ canvas {
 	right: 0;
 	bottom: 0;
 }
+
+#navigation ul{
+	position: absolute;
+	z-index: 1000;
+	display: flex;
+	list-style-type: none;
+	justify-content: center;
+	flex-direction: row;
+	width: 100% !important;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+#navigation ul a {
+	color: white;
+	font-size: 40px;
+	margin: 0 15px;
+}
+
+.glitch {
+	position: relative;
+	font-weight: 700;
+	font-size: 22px;
+	color: white;
+	line-height: 1;
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.glitch:after {
+	content: attr(title);
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity: .8;
+	color: #f0f;
+	z-index: -1;
+}
+
+.glitch:hover:after {
+	animation: glitch .3s cubic-bezier(.25, .46, .45, .94) reverse both infinite;
+}
+
+.glitch:before {
+	content: attr(title);
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity: .8;
+	color: #0ff;
+	z-index: -1;
+}
+
+.glitch:hover:before {
+	animation: glitch .3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+@keyframes glitch {
+	0% {
+		-webkit-transform: translate(0);
+		transform: translate(0)
+	}
+	20% {
+		-webkit-transform: translate(-5px, 5px);
+		transform: translate(-5px, 5px)
+	}
+	40% {
+		-webkit-transform: translate(-5px, -5px);
+		transform: translate(-5px, -5px)
+	}
+	60% {
+		-webkit-transform: translate(5px, 5px);
+		transform: translate(5px, 5px)
+	}
+	80% {
+		-webkit-transform: translate(5px, -5px);
+		transform: translate(5px, -5px)
+	}
+	to {
+		-webkit-transform: translate(0);
+		transform: translate(0)
+	}
+}
