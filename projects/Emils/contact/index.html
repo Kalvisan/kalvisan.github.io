@@ -4,24 +4,74 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 	<link rel="shortcut icon" type="image/png" href="../img/favicon.ico"/>
-	<title>Emila Kosmiskie Darbi</title>
+	<title>Emila Kosmiskie Sakari</title>
+	<link rel="stylesheet" href="../css/global.css">
 	<style>
 		body, html {
 			width: 100%;
 			height: 100%;
-			overflow: hidden;
+			overflow: auto !important;
+		}
+		p {
+			color: white;
+			font-size: 18px;
+			text-align: center;
+		}
+		section {
+			position: relative;
+			margin: 0 auto;
+			width: 80%;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+		input, textarea {
+			background: white;
+			padding: 5px 30px;
+			margin: 15px;
+		}
+		button {
+			background: white;
+			color: black !important;
+			font-size: 20px !important;
+			font-weight: bold;
+			margin: 15px !important;
+			padding: 5px 30px !important;
+		}
+		#navigation ul {
+			position: relative;
+			flex-direction: row;
+			justify-content: center;
+		}
+		@media only screen and (max-width: 800px) {
+			#navigation ul a {
+				font-size: 20px;
+			}
 		}
 	</style>
-	<link rel="stylesheet" href="../css/global.css">
 </head>
 <body class="galaxy-background">
 <nav id="navigation">
 	<ul>
-		<li><a href="/" class="glitch" title="Home">Home</a></li>
-		<li><a href="/projects" class="glitch" title="Projects">Projects</a></li>
-		<li><a href="/about" class="glitch" title="About Me">About Me</a></li>
-		<li><a href="/contact" class="glitch" title="Contact Me">Contact Me</a></li>
+		<li><a href="/" class="glitch" title="Sākumlapa">Sākumlapa</a></li>
+		<li><a href="/projects" class="glitch" title="Darbi">Darbi</a></li>
+		<li><a href="/about" class="glitch" title="Par Mani">Par Mani</a></li>
+		<li><a href="/contact" class="glitch" title="Sazinies">Sazinies</a></li>
 	</ul>
 </nav>
+
+<section>
+	<hr>
+	<input width="50%" type="text" placeholder="Jūsu epasts">
+	<input width="50%" type="text" placeholder="Jūsu vārds">
+	<textarea cols="30" rows="10" placeholder="Jūsu ziņa"></textarea>
+	<button>Nosūtīt</button>
+	<hr data-content="VAI">
+	<p>
+		Talrunis: 28243901<br>
+		E-pasts: Emils.Uzklingis@gmail.com
+	</p>
+	<hr>
+</section>
 </body>
 </html>

@@ -1,31 +1,465 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="initial-scale=1.0">
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kalvisan's Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="https://avatars3.githubusercontent.com/u/8895580?v=4" type="image/png"></head>
 
-	<meta name="description" content="I'm web developer, who love to create simple and beautiful designs. I like to work smart, type once " />
-	<meta name="keywords" content="portfolio, about me, kalvisan, web developer, web programmer, latvia" />
-	<meta name="author" content="Kalvisan" />
-	<meta name="robots" content="index, nofollow" />
+  <body>
+    <div id="loading">
+      <div id="spinner"></div>
+    </div>
+    <div id="profile">
+      <div id="username" style="padding-top:220px"><span style="display:block;">Kalvis Kolesnikovs</span><a href="https://github.com/Kalvisan">@Kalvisan</a></div>
+      <div id="userbio" style="display: none;">undefined</div>
+      <div id="about">
+			<span style="display:none;"><i class="fas fa-users"></i> &nbsp; null</span>
+			<span style="display:none;"><i class="fas fa-envelope"></i> &nbsp; null</span>
+			<span style="display:block;"><i class="fas fa-link"></i> &nbsp; <a href="https://kalvisan.github.io/">https://kalvisan.github.io/</a></span>
+			<span style="display:block;"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp; Latvia</span>
+			<div class="socials">
+				<span style="display:block;"><a href="https://www.twitter.com/kechupslv" target="_blank" class="socials"><i class="fab fa-twitter"></i></a></span>
+				<span style="display:none !important;"><a href="https://www.dribbble.com/null" target="_blank" class="socials"><i class="fab fa-dribbble"></i></a></span>
+				<span style="display:block;"><a href="https://www.linkedin.com/in/kalvis-koļesņikovs-45264785/" target="_blank" class="socials"><i class="fab fa-linkedin-in"></i></a></span>
+				<span style="display:none !important;"><a href="https://www.medium.com/@null/" target="_blank" class="socials"><i class="fab fa-medium-m"></i></a></span>
+			</div>
+		</div>
+    </div>
+    <div id="display">
+	  <div id="blog_section">
+        <h1>My Blog</h1>
+        <div id="blogs"></div>
+      </div>
+      <div id="work">
+        <h1>My Work</h1>
+        <div class="projects" id="work_section">
+                        <a href="https://github.com/Kalvisan/bugzilla2jira" target="_blank">
+                        <section>
+                            <div class="section_title">bugzilla2jira</div>
+                            <div class="about_section">
+                            <span style="display:block;">Convert Bugzilla project to Jira importable CSV file</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/Simulacia" target="_blank">
+                        <section>
+                            <div class="section_title">Simulacia</div>
+                            <div class="about_section">
+                            <span style="display:block;">My little playground in Unity</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; ShaderLab</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/minecraft-rpg-server" target="_blank">
+                        <section>
+                            <div class="section_title">minecraft-rpg-server</div>
+                            <div class="about_section">
+                            <span style="display:block;">Simple Bukkit RPG server</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/EmilsKocers/EmilsKocers.github.io" target="_blank">
+                        <section>
+                            <div class="section_title">EmilsKocers.github.io</div>
+                            <div class="about_section">
+                            <span style="display:none;">undefined</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/kalvisan.github.io" target="_blank">
+                        <section>
+                            <div class="section_title">kalvisan.github.io</div>
+                            <div class="about_section">
+                            <span style="display:block;">This is my portfolio website. You can visit it by kalvisan.lv </span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/google_assistant_startup" target="_blank">
+                        <section>
+                            <div class="section_title">google_assistant_startup</div>
+                            <div class="about_section">
+                            <span style="display:block;">Simple bash script to execute Google Assistant on device startup</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Shell</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/orangepi_fan_controller" target="_blank">
+                        <section>
+                            <div class="section_title">orangepi_fan_controller</div>
+                            <div class="about_section">
+                            <span style="display:block;">Simple BASH script for toggling CPU fan</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Shell</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/BattleDog" target="_blank">
+                        <section>
+                            <div class="section_title">BattleDog</div>
+                            <div class="about_section">
+                            <span style="display:block;">Minecraft plugin</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/Blop" target="_blank">
+                        <section>
+                            <div class="section_title">Blop</div>
+                            <div class="about_section">
+                            <span style="display:block;">2 weeks school project (Blop)</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; C#</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/SkyCore.eu-Website2" target="_blank">
+                        <section>
+                            <div class="section_title">SkyCore.eu-Website2</div>
+                            <div class="about_section">
+                            <span style="display:block;">SkyCore.eu-Website</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; PHP</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/TappyPlanee" target="_blank">
+                        <section>
+                            <div class="section_title">TappyPlanee</div>
+                            <div class="about_section">
+                            <span style="display:block;">Android game</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 1</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Veips/DrawingGame" target="_blank">
+                        <section>
+                            <div class="section_title">DrawingGame</div>
+                            <div class="about_section">
+                            <span style="display:none;">undefined</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/Virtualie-Uzdevumi" target="_blank">
+                        <section>
+                            <div class="section_title">Virtualie-Uzdevumi</div>
+                            <div class="about_section">
+                            <span style="display:block;">Latviešu uzdevumu uzdošanas programma, ar kuras palīdzību var uzdot un saņemt uzdevumus. 2 nedēļu projekts.</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; C#</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/SpaceManStory" target="_blank">
+                        <section>
+                            <div class="section_title">SpaceManStory</div>
+                            <div class="about_section">
+                            <span style="display:block;">2D Space Man Story RPG</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/SpaceShip" target="_blank">
+                        <section>
+                            <div class="section_title">SpaceShip</div>
+                            <div class="about_section">
+                            <span style="display:block;">My first 2d Java game using JFrame (SpaceShip)</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a></div>
+      </div>
+      <div id="forks" style="display: block;">
+        <h1>Git Forks</h1>
+        <div class="projects" id="forks_section">
+                        <a href="https://github.com/Kalvisan/miflora-card" target="_blank">
+                        <section>
+                            <div class="section_title">miflora-card</div>
+                            <div class="about_section">
+                            <span style="display:block;">A Home Assistant Lovelace card to report MiFlora plant sensors based on the HA Plant Card.</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/Bugsy" target="_blank">
+                        <section>
+                            <div class="section_title">Bugsy</div>
+                            <div class="about_section">
+                            <span style="display:block;">A python library for interacting with Bugzilla</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/iot-react-native" target="_blank">
+                        <section>
+                            <div class="section_title">iot-react-native</div>
+                            <div class="about_section">
+                            <span style="display:block;">A react native implementation of smart home application</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/mantis-to-jira" target="_blank">
+                        <section>
+                            <div class="section_title">mantis-to-jira</div>
+                            <div class="about_section">
+                            <span style="display:block;">Data transfer from Mantis to Jira using CSV</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/RouterOS_API" target="_blank">
+                        <section>
+                            <div class="section_title">RouterOS_API</div>
+                            <div class="about_section">
+                            <span style="display:block;">Python API client for RouterOS that is easy to use and modify.</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/sweetalert2-themes" target="_blank">
+                        <section>
+                            <div class="section_title">sweetalert2-themes</div>
+                            <div class="about_section">
+                            <span style="display:block;">Official themes for SweetAlert2</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; HTML</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/pytkcon" target="_blank">
+                        <section>
+                            <div class="section_title">pytkcon</div>
+                            <div class="about_section">
+                            <span style="display:block;">Tkinter Console Widget Class</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/mikrotik-routeros-scripts" target="_blank">
+                        <section>
+                            <div class="section_title">mikrotik-routeros-scripts</div>
+                            <div class="about_section">
+                            <span style="display:block;">Various scripts for MikroTik RouterOS</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/yii2-bootstrap" target="_blank">
+                        <section>
+                            <div class="section_title">yii2-bootstrap</div>
+                            <div class="about_section">
+                            <span style="display:block;">Yii 2 Bootstrap 4 Extension.</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; PHP</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/pixi.js" target="_blank">
+                        <section>
+                            <div class="section_title">pixi.js</div>
+                            <div class="about_section">
+                            <span style="display:block;">Super fast HTML 5 2D rendering engine that uses webGL with canvas fallback</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/vim-devicons" target="_blank">
+                        <section>
+                            <div class="section_title">vim-devicons</div>
+                            <div class="about_section">
+                            <span style="display:block;"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f523.png?v8" class="emoji"> adds font icons (glyphs ★♨☢) to programming languages, libraries, and web developer filetypes for: NERDTree, powerline, vim-airline, ctrlp, unite, lightline.vim, vimfiler, and flagship</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; VimL</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a>
+                        <a href="https://github.com/Kalvisan/ShootR" target="_blank">
+                        <section>
+                            <div class="section_title">ShootR</div>
+                            <div class="about_section">
+                            <span style="display:block;">Multiplayer space ship game built on the SignalR framework.</span>
+                            </div>
+                            <div class="bottom_section">
+                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
+                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
+                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
+                            </div>
+                        </section>
+                        </a></div>
+      </div>
+      <div id="footer">
+        <a href="https://github.com/imfunniee" style="font-size:10px" target="_blank">made by a human</a>
+      </div>
+    </div>
+    <script type="text/javascript">
+      setTimeout(function() {
+        document.getElementById("loading").classList.add("animated");
+        document.getElementById("loading").classList.add("fadeOut");
+        setTimeout(function() {
+          document.getElementById("loading").classList.remove("animated");
+          document.getElementById("loading").classList.remove("fadeOut");
+          document.getElementById("loading").style.display = "none";
+        }, 800);
+      }, 1500);
+      $.getJSON("blog.json", function(blog) {
+        blog = blog || [];
+        if (blog.length == 0) {
+          return (document.getElementById("blog_section").style.display =
+            "none");
+        }
+        for (var i = 0; i < blog.length; i++) {
+          $("#blogs").append(`
+            <a href="./blog/${blog[i].url_title}/" target="_blank">
+                <section>
+                    <img src="./blog/${blog[i].url_title}/${blog[i].top_image}">
+                    <div class="blog_container">
+                        <div class="section_title">${blog[i].title}</div>
+                        <div class="about_section">
+                            ${blog[i].sub_title}
+                        </div>
+                    </div>
+                </section>
+            </a>
+            `);
+        }
+      }).fail(function() {
+        return (document.getElementById("blog_section").style.display = "none");
+      });
+    </script>
 
-	<link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/8895580?v=3&s=50">
-	<title>Hello, I'm Kalvis.</title>
+    <script>
+      const magicProjectsGrid = new MagicGrid({
+        container: "#work_section",
+        animate: false,
+        gutter: 30, // default gutter size
+        static: true,
+        useMin: false,
+        maxColumns: 2,
+        useTransform: true
+      });
 
-	<link rel="stylesheet" type="text/css" href="src/css/style.css">
-</head>
-<body>
-<div id="particles-js" style="height:100%;"></div>
+      const magicForksGrid = new MagicGrid({
+        container: "#forks_section",
+        animate: false,
+        gutter: 30, // default gutter size
+        static: true,
+        useMin: false,
+        maxColumns: 2,
+        useTransform: true
+      });
 
-<div class="wrapper">
-	<ul class="content">
-		<li id="first-line">Hello. I'm <strong>Kalvis.</strong><br/></li>
-		<li>I'm programmer from Latvia, Riga. And I love to make simple yet complex designs. Also I'm always up for new projects and ideas.</li>
-		<li>I like to work with DIY projects. You can check out some of my projects at <a href="//github.com/Kalvisan/kalvisan.github.io" target="_blank">GitHub</a>.<br/></li>
-		<li>You can contact with me using: <a href="mailto:kalvis.kolesnikovs@gmail.com">E-Mail</a> or using <a href="https://www.linkedin.com/in/kalvis-kolesnikovs-45264785">LinkedIn</a> or even <a href="https://twitter.com/kechupslv">Twitter</a></li>
-	</ul>
-</div>
-<script src="src/js/particle.min.js"></script>
-<script src="src/js/script.js"></script>
-</body>
-</html>
+      $("document").ready(() => {
+        magicProjectsGrid.listen();
+        magicForksGrid.listen();
+      });
+    </script>
+  
+
+</body></html>
