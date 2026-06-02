@@ -1,465 +1,916 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kalvisan's Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
-    <link rel="stylesheet" href="index.css">
-  <link rel="icon" href="https://avatars3.githubusercontent.com/u/8895580?v=4" type="image/png"></head>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <body>
-    <div id="loading">
-      <div id="spinner"></div>
+<title>Kalvis K. Kolesnikovs · Solution architect</title>
+<meta name="description" content="Solution architect and full-stack developer in Riga, Latvia. Ten years building SaaS platforms, data heavy admin tools, DevOps and AI systems with Laravel, React, PostgreSQL, Kubernetes, and Python." />
+<meta name="author" content="Kalvis K. Kolesnikovs" />
+<meta name="theme-color" content="#0b0b0c" />
+<link rel="canonical" href="https://www.kalvisan.lv/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Kalvis K. Kolesnikovs · Solution architect" />
+<meta property="og:description" content="I design and build software end to end, from PostgreSQL schemas and APIs to React interfaces, the Kubernetes infrastructure underneath, and the AI on top." />
+<meta property="og:url" content="https://www.kalvisan.lv/" />
+<meta property="og:site_name" content="Kalvis K. Kolesnikovs" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Kalvis K. Kolesnikovs · Solution architect" />
+<meta name="twitter:description" content="Solution architect in Riga. Laravel, React, PostgreSQL, Kubernetes, Python, and AI systems." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kalvis K. Kolesnikovs",
+  "alternateName": "Kalvis",
+  "jobTitle": "Solution architect",
+  "url": "https://www.kalvisan.lv/",
+  "address": { "@type": "PostalAddress", "addressLocality": "Riga", "addressCountry": "LV" },
+  "knowsAbout": ["Solution architecture", "Laravel", "PHP", "Python", "React", "Inertia", "Next.js", "PostgreSQL", "TypeScript", "Docker", "Kubernetes", "DevOps", "SRE", "Machine learning", "Retrieval augmented generation", "TensorFlow", "Robotics", "IoT"],
+  "sameAs": ["https://github.com/kalvisan", "https://www.linkedin.com/in/kalvis-ko%C4%BCes%C5%86ikovs-45264785/"]
+}
+</script>
+
+<style>
+  /* Design tokens. Fluid values scale the page up on large and ultrawide displays. */
+  :root {
+    --bg: #0b0b0c;
+    --fg: #eae6dd;
+    --muted: #9b978c;
+    --faint: #5d5a51;
+    --line: rgba(234, 230, 221, 0.10);
+    --line-strong: rgba(234, 230, 221, 0.20);
+    --accent: #8fd17a;
+    --card: rgba(234, 230, 221, 0.025);
+
+    --maxw: 1120px;
+    --pad: clamp(20px, 5vw, 64px);
+    --fs: 16px;
+
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  @media (min-width: 1920px) { :root { --maxw: 1320px; --fs: 18px; --pad: 88px; } }
+  @media (min-width: 2560px) { :root { --maxw: 1640px; --fs: 21px; --pad: 128px; } }
+  @media (min-width: 3400px) { :root { --maxw: 2040px; --fs: 26px; --pad: 200px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { font-size: var(--fs); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--fg);
+    background: var(--bg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  a { color: inherit; }
+
+  /* Background canvas. Fixed, dim, masked so it is strongest near the top and fades down. */
+  #bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.5;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(130% 95% at 50% -10%, #000 0%, #000 38%, rgba(0,0,0,0.35) 68%, transparent 100%);
+            mask-image: radial-gradient(130% 95% at 50% -10%, #000 0%, #000 38%, rgba(0,0,0,0.35) 68%, transparent 100%);
+  }
+
+  .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+  /* Everything that should sit above the background. */
+  header, main, footer { position: relative; z-index: 1; }
+
+  /* Focus styles, visible on keyboard navigation. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 10px 16px;
+    z-index: 100;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+  .skip:focus { left: 12px; top: 12px; }
+
+  /* Navigation */
+  .nav {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(to bottom, rgba(11,11,12,0.78), rgba(11,11,12,0.0));
+    border-bottom: 1px solid transparent;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 24px;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .brand .dim { color: var(--faint); }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-ext { color: var(--fg) !important; border: 1px solid var(--line-strong); padding: 7px 14px; border-radius: 999px; }
+  .nav-ext:hover { border-color: var(--fg); }
+
+  @media (max-width: 640px) {
+    .nav-links a.secondary { display: none; }
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100svh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(80px, 12vh, 180px) clamp(40px, 8vh, 90px);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin: 0 0 clamp(20px, 4vh, 40px);
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(143, 209, 122, 0.6);
+    animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(143,209,122,0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(143,209,122,0); }
+    100% { box-shadow: 0 0 0 0 rgba(143,209,122,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+
+  h1.title {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 13vw, 11rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 0 0 clamp(24px, 4vh, 44px);
+  }
+  .statement {
+    max-width: 36ch;
+    font-size: clamp(1.05rem, 1.4vw, 1.4rem);
+    line-height: 1.55;
+    color: var(--fg);
+    margin: 0 0 clamp(32px, 5vh, 52px);
+  }
+  .statement .soft { color: var(--muted); }
+
+  .cta { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--fg); color: var(--bg); border-color: var(--fg); font-weight: 500; }
+  .btn-primary:hover { background: #fff; }
+  .btn-ghost:hover { border-color: var(--fg); }
+  .btn .arrow { transition: transform 0.2s ease; }
+  .btn:hover .arrow { transform: translate(2px, -2px); }
+
+  /* Capability strip */
+  .strip {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(18px, 3vw, 44px);
+    padding-block: 20px;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .strip-inner span { display: inline-flex; align-items: center; gap: clamp(18px, 3vw, 44px); }
+  .strip-inner span::before { content: "·"; color: var(--faint); }
+  .strip-inner span:first-child::before { content: none; }
+
+  /* Sections */
+  section { padding-block: clamp(72px, 12vh, 160px); }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: clamp(36px, 6vh, 72px);
+  }
+  .section-no {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .section-name {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+  }
+  .lead {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.7rem, 3.2vw, 2.9rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--fg);
+  }
+  .about-body p { color: var(--muted); margin: 0 0 1.2em; max-width: 52ch; }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-meta {
+    margin-top: clamp(28px, 4vh, 44px);
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--faint);
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  /* Experience */
+  .cv { border-top: 1px solid var(--line); }
+  .cv-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: clamp(16px, 3vw, 56px);
+    padding: clamp(22px, 3.5vh, 36px) 4px;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .cv-when { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.02em; }
+  .cv-body h3 {
+    margin: 0 0 8px;
+    font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .cv-body p { margin: 0; color: var(--muted); max-width: 62ch; font-size: 0.97rem; }
+  @media (max-width: 640px) { .cv-row { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* Stack */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stack-col { background: var(--bg); padding: clamp(22px, 2vw, 32px); }
+  .stack-col h3 {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+  .stack-col ul { list-style: none; margin: 0; padding: 0; }
+  .stack-col li { color: var(--muted); padding: 5px 0; font-size: 0.95rem; }
+
+  @media (max-width: 980px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .stack-grid { grid-template-columns: 1fr; } }
+
+  /* Experiments */
+  .exp-list { border-top: 1px solid var(--line); }
+  .exp-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: clamp(16px, 3vw, 48px);
+    align-items: baseline;
+    padding: clamp(24px, 3.5vh, 40px) 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+  a.exp-row:hover { background: var(--card); padding-left: 16px; }
+  .exp-row.wip { opacity: 0.45; }
+  .exp-no { font-family: var(--mono); font-size: 0.82rem; color: var(--faint); }
+  .exp-main h3 {
+    font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  a.exp-row:hover .exp-main h3 .arrow { transform: translate(3px, -3px); }
+  .exp-main h3 .arrow { color: var(--accent); transition: transform 0.2s ease; font-family: var(--mono); }
+  .exp-main p { color: var(--muted); margin: 0 0 14px; max-width: 60ch; font-size: 0.97rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .exp-side { text-align: right; font-family: var(--mono); font-size: 0.78rem; color: var(--faint); white-space: nowrap; }
+  .exp-status { color: var(--accent); }
+  .exp-status.is-wip { color: var(--faint); }
+  .exp-note {
+    margin-top: clamp(24px, 4vh, 40px);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--faint);
+  }
+
+  @media (max-width: 640px) {
+    .exp-row { grid-template-columns: 1fr; gap: 12px; }
+    .exp-side { text-align: left; }
+    .exp-no { display: none; }
+  }
+
+  /* Contact */
+  .contact { padding-bottom: clamp(48px, 8vh, 90px); }
+  .contact-label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; margin: 0 0 22px; }
+  .email-link {
+    display: inline-block;
+    font-weight: 600;
+    font-size: clamp(2rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: var(--fg);
+    word-break: break-word;
+  }
+  .email-link:hover { color: var(--accent); }
+  .email-fallback { font-family: var(--mono); font-size: 1rem; color: var(--muted); }
+
+  .footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: clamp(48px, 8vh, 96px);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--faint);
+  }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--fg); }
+  .clock { color: var(--muted); }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">Kalvis<span class="dim">.dev</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="secondary" href="#about">About</a>
+      <a class="secondary" href="#experience">Experience</a>
+      <a class="secondary" href="#stack">Stack</a>
+      <a class="secondary" href="#work">Work</a>
+      <a class="secondary" href="#contact">Contact</a>
+      <a class="nav-ext" id="nav-github" href="https://github.com/kalvisan" rel="noopener" target="_blank">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" aria-label="Introduction">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Solution architect · Riga, Latvia</p>
+      <h1 class="title">Kalvis</h1>
+      <p class="statement">
+        I design and build software end to end, from PostgreSQL schemas and APIs to the React interfaces on top.
+        <span class="soft">For ten years I have led teams and shipped SaaS platforms, data heavy admin tools, and the infrastructure and AI behind them. On the side I build small generative graphics experiments.</span>
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#work">See the work <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-ghost" id="hero-github" href="https://github.com/kalvisan" rel="noopener" target="_blank">GitHub <span class="arrow" aria-hidden="true">&#8599;</span></a>
+      </div>
     </div>
-    <div id="profile">
-      <div id="username" style="padding-top:220px"><span style="display:block;">Kalvis Kolesnikovs</span><a href="https://github.com/Kalvisan">@Kalvisan</a></div>
-      <div id="userbio" style="display: none;">undefined</div>
-      <div id="about">
-			<span style="display:none;"><i class="fas fa-users"></i> &nbsp; null</span>
-			<span style="display:none;"><i class="fas fa-envelope"></i> &nbsp; null</span>
-			<span style="display:block;"><i class="fas fa-link"></i> &nbsp; <a href="https://kalvisan.github.io/">https://kalvisan.github.io/</a></span>
-			<span style="display:block;"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp; Latvia</span>
-			<div class="socials">
-				<span style="display:block;"><a href="https://www.twitter.com/kechupslv" target="_blank" class="socials"><i class="fab fa-twitter"></i></a></span>
-				<span style="display:none !important;"><a href="https://www.dribbble.com/null" target="_blank" class="socials"><i class="fab fa-dribbble"></i></a></span>
-				<span style="display:block;"><a href="https://www.linkedin.com/in/kalvis-koļesņikovs-45264785/" target="_blank" class="socials"><i class="fab fa-linkedin-in"></i></a></span>
-				<span style="display:none !important;"><a href="https://www.medium.com/@null/" target="_blank" class="socials"><i class="fab fa-medium-m"></i></a></span>
-			</div>
-		</div>
+  </section>
+
+  <!-- Capability strip -->
+  <div class="strip">
+    <div class="wrap strip-inner" aria-label="Core tools">
+      <span>Laravel</span><span>React</span><span>PostgreSQL</span><span>Kubernetes</span><span>Python</span><span>TensorFlow</span>
     </div>
-    <div id="display">
-	  <div id="blog_section">
-        <h1>My Blog</h1>
-        <div id="blogs"></div>
+  </div>
+
+  <!-- About -->
+  <section id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-no">01</span>
+        <h2 class="section-name" id="about-h">About</h2>
       </div>
-      <div id="work">
-        <h1>My Work</h1>
-        <div class="projects" id="work_section">
-                        <a href="https://github.com/Kalvisan/bugzilla2jira" target="_blank">
-                        <section>
-                            <div class="section_title">bugzilla2jira</div>
-                            <div class="about_section">
-                            <span style="display:block;">Convert Bugzilla project to Jira importable CSV file</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/Simulacia" target="_blank">
-                        <section>
-                            <div class="section_title">Simulacia</div>
-                            <div class="about_section">
-                            <span style="display:block;">My little playground in Unity</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; ShaderLab</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/minecraft-rpg-server" target="_blank">
-                        <section>
-                            <div class="section_title">minecraft-rpg-server</div>
-                            <div class="about_section">
-                            <span style="display:block;">Simple Bukkit RPG server</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/EmilsKocers/EmilsKocers.github.io" target="_blank">
-                        <section>
-                            <div class="section_title">EmilsKocers.github.io</div>
-                            <div class="about_section">
-                            <span style="display:none;">undefined</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/kalvisan.github.io" target="_blank">
-                        <section>
-                            <div class="section_title">kalvisan.github.io</div>
-                            <div class="about_section">
-                            <span style="display:block;">This is my portfolio website. You can visit it by kalvisan.lv </span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/google_assistant_startup" target="_blank">
-                        <section>
-                            <div class="section_title">google_assistant_startup</div>
-                            <div class="about_section">
-                            <span style="display:block;">Simple bash script to execute Google Assistant on device startup</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Shell</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/orangepi_fan_controller" target="_blank">
-                        <section>
-                            <div class="section_title">orangepi_fan_controller</div>
-                            <div class="about_section">
-                            <span style="display:block;">Simple BASH script for toggling CPU fan</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Shell</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/BattleDog" target="_blank">
-                        <section>
-                            <div class="section_title">BattleDog</div>
-                            <div class="about_section">
-                            <span style="display:block;">Minecraft plugin</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/Blop" target="_blank">
-                        <section>
-                            <div class="section_title">Blop</div>
-                            <div class="about_section">
-                            <span style="display:block;">2 weeks school project (Blop)</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; C#</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/SkyCore.eu-Website2" target="_blank">
-                        <section>
-                            <div class="section_title">SkyCore.eu-Website2</div>
-                            <div class="about_section">
-                            <span style="display:block;">SkyCore.eu-Website</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; PHP</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/TappyPlanee" target="_blank">
-                        <section>
-                            <div class="section_title">TappyPlanee</div>
-                            <div class="about_section">
-                            <span style="display:block;">Android game</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 1</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Veips/DrawingGame" target="_blank">
-                        <section>
-                            <div class="section_title">DrawingGame</div>
-                            <div class="about_section">
-                            <span style="display:none;">undefined</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/Virtualie-Uzdevumi" target="_blank">
-                        <section>
-                            <div class="section_title">Virtualie-Uzdevumi</div>
-                            <div class="about_section">
-                            <span style="display:block;">Latviešu uzdevumu uzdošanas programma, ar kuras palīdzību var uzdot un saņemt uzdevumus. 2 nedēļu projekts.</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; C#</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/SpaceManStory" target="_blank">
-                        <section>
-                            <div class="section_title">SpaceManStory</div>
-                            <div class="about_section">
-                            <span style="display:block;">2D Space Man Story RPG</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/SpaceShip" target="_blank">
-                        <section>
-                            <div class="section_title">SpaceShip</div>
-                            <div class="about_section">
-                            <span style="display:block;">My first 2d Java game using JFrame (SpaceShip)</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a></div>
-      </div>
-      <div id="forks" style="display: block;">
-        <h1>Git Forks</h1>
-        <div class="projects" id="forks_section">
-                        <a href="https://github.com/Kalvisan/miflora-card" target="_blank">
-                        <section>
-                            <div class="section_title">miflora-card</div>
-                            <div class="about_section">
-                            <span style="display:block;">A Home Assistant Lovelace card to report MiFlora plant sensors based on the HA Plant Card.</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/Bugsy" target="_blank">
-                        <section>
-                            <div class="section_title">Bugsy</div>
-                            <div class="about_section">
-                            <span style="display:block;">A python library for interacting with Bugzilla</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/iot-react-native" target="_blank">
-                        <section>
-                            <div class="section_title">iot-react-native</div>
-                            <div class="about_section">
-                            <span style="display:block;">A react native implementation of smart home application</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/mantis-to-jira" target="_blank">
-                        <section>
-                            <div class="section_title">mantis-to-jira</div>
-                            <div class="about_section">
-                            <span style="display:block;">Data transfer from Mantis to Jira using CSV</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Java</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/RouterOS_API" target="_blank">
-                        <section>
-                            <div class="section_title">RouterOS_API</div>
-                            <div class="about_section">
-                            <span style="display:block;">Python API client for RouterOS that is easy to use and modify.</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/sweetalert2-themes" target="_blank">
-                        <section>
-                            <div class="section_title">sweetalert2-themes</div>
-                            <div class="about_section">
-                            <span style="display:block;">Official themes for SweetAlert2</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; HTML</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/pytkcon" target="_blank">
-                        <section>
-                            <div class="section_title">pytkcon</div>
-                            <div class="about_section">
-                            <span style="display:block;">Tkinter Console Widget Class</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/mikrotik-routeros-scripts" target="_blank">
-                        <section>
-                            <div class="section_title">mikrotik-routeros-scripts</div>
-                            <div class="about_section">
-                            <span style="display:block;">Various scripts for MikroTik RouterOS</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/yii2-bootstrap" target="_blank">
-                        <section>
-                            <div class="section_title">yii2-bootstrap</div>
-                            <div class="about_section">
-                            <span style="display:block;">Yii 2 Bootstrap 4 Extension.</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; PHP</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/pixi.js" target="_blank">
-                        <section>
-                            <div class="section_title">pixi.js</div>
-                            <div class="about_section">
-                            <span style="display:block;">Super fast HTML 5 2D rendering engine that uses webGL with canvas fallback</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 1</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/vim-devicons" target="_blank">
-                        <section>
-                            <div class="section_title">vim-devicons</div>
-                            <div class="about_section">
-                            <span style="display:block;"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f523.png?v8" class="emoji"> adds font icons (glyphs ★♨☢) to programming languages, libraries, and web developer filetypes for: NERDTree, powerline, vim-airline, ctrlp, unite, lightline.vim, vimfiler, and flagship</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; VimL</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/Kalvisan/ShootR" target="_blank">
-                        <section>
-                            <div class="section_title">ShootR</div>
-                            <div class="about_section">
-                            <span style="display:block;">Multiplayer space ship game built on the SignalR framework.</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; JavaScript</span>
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a></div>
-      </div>
-      <div id="footer">
-        <a href="https://github.com/imfunniee" style="font-size:10px" target="_blank">made by a human</a>
+      <div class="about-grid">
+        <p class="lead">I build the parts of products other people rely on. The data models, the APIs, the admin panels, the infrastructure, and now the AI underneath them.</p>
+        <div class="about-body">
+          <p>I have worked in software for over ten years, most of it as a solution architect and lead developer. I work mainly in Laravel and React on top of PostgreSQL, with Python across automation, data, and machine learning. I like strict schemas, reusable abstractions, and interfaces that are dense with information but still calm to use.</p>
+          <p>I also run the infrastructure: Docker and Kubernetes, CI/CD, and the observability that catches problems before users do. A growing part of my work is AI, from retrieval pipelines and model integration to training and serving my own models.</p>
+          <p>Alongside client and product work I build my own things, from internal tools to robotics and IoT, with custom boards and home automation. The experiments below come out of that habit of building things to understand them.</p>
+          <p class="about-meta">Open to new opportunities · Based in Riga, Latvia</p>
+        </div>
       </div>
     </div>
-    <script type="text/javascript">
-      setTimeout(function() {
-        document.getElementById("loading").classList.add("animated");
-        document.getElementById("loading").classList.add("fadeOut");
-        setTimeout(function() {
-          document.getElementById("loading").classList.remove("animated");
-          document.getElementById("loading").classList.remove("fadeOut");
-          document.getElementById("loading").style.display = "none";
-        }, 800);
-      }, 1500);
-      $.getJSON("blog.json", function(blog) {
-        blog = blog || [];
-        if (blog.length == 0) {
-          return (document.getElementById("blog_section").style.display =
-            "none");
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-no">02</span>
+        <h2 class="section-name" id="exp-h">Experience</h2>
+      </div>
+      <div class="cv">
+        <div class="cv-row">
+          <div class="cv-when">2025 to present</div>
+          <div class="cv-body">
+            <h3>Co-founder, AI for DevOps and SRE</h3>
+            <p>Building an AI native platform for infrastructure monitoring, incident analysis, and automated root cause investigation, on Docker, Kubernetes, and cloud. Designing the systems for logs, metrics, and operational intelligence, and the AI workflows on top.</p>
+          </div>
+        </div>
+        <div class="cv-row">
+          <div class="cv-when">2024 to present</div>
+          <div class="cv-body">
+            <h3>Co-founder and CTO, operations SaaS</h3>
+            <p>An internal operations platform for large retail sites: maintenance workflows, task management, and reporting. Lead developer and solution architect across full-stack Laravel, PostgreSQL, and Kubernetes.</p>
+          </div>
+        </div>
+        <div class="cv-row">
+          <div class="cv-when">2020 to present</div>
+          <div class="cv-body">
+            <h3>Co-founder and lead developer, product studio</h3>
+            <p>Larger SaaS and mobile projects delivered end to end. Solution architecture, full-stack development, and DevOps. Currently responsible for a team of fifteen.</p>
+          </div>
+        </div>
+        <div class="cv-row">
+          <div class="cv-when">2014 to 2020</div>
+          <div class="cv-body">
+            <h3>Software developer</h3>
+            <p>Six years shipping web, mobile, and internal systems across PHP, Python, Java, and .NET, from training and ticketing platforms to FinTech analytics, payment systems, and data pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section id="stack" aria-labelledby="stack-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-no">03</span>
+        <h2 class="section-name" id="stack-h">Stack</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-col">
+          <h3>Backend and architecture</h3>
+          <ul><li>Laravel</li><li>PHP</li><li>Python</li><li>PostgreSQL</li><li>REST and microservices</li><li>Queues and async</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>Frontend</h3>
+          <ul><li>React</li><li>Inertia</li><li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>React Native</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>Infrastructure and DevOps</h3>
+          <ul><li>Docker</li><li>Kubernetes</li><li>CI/CD pipelines</li><li>OpenTofu and Terraform</li><li>Observability and SRE</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>AI, data and hardware</h3>
+          <ul><li>RAG and vector search</li><li>OpenAI and model APIs</li><li>Model training with TensorFlow</li><li>Web scraping and ETL</li><li>Robotics and IoT</li><li>Canvas and generative graphics</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experiments -->
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-no">04</span>
+        <h2 class="section-name" id="work-h">Experiments</h2>
+      </div>
+      <div class="exp-list" id="exp-list"></div>
+      <p class="exp-note">The live pieces are open source and free to use in your own projects.</p>
+    </div>
+  </section>
+</main>
+
+<!-- Contact -->
+<footer class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-no">05</span>
+      <h2 class="section-name" id="contact-h">Contact</h2>
+    </div>
+    <p class="contact-label">Have a project, a role, or a question?</p>
+    <a class="email-link" id="email-link" href="#">
+      <span class="email-fallback">Loading contact</span>
+    </a>
+    <div class="footer-bar">
+      <span id="copyright">&copy; Kalvis K. Kolesnikovs</span>
+      <div class="footer-links" id="footer-links">
+        <a href="https://github.com/kalvisan" rel="noopener" target="_blank">GitHub</a>
+      </div>
+      <span class="clock" id="clock" aria-label="Local time in Riga">Riga · --:--</span>
+    </div>
+  </div>
+</footer>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<script>
+/* ============================================================
+   SITE CONFIG. Edit your details in this one block.
+   The email is split into parts so the full address never
+   appears as plain text in the page source. It is assembled
+   in the browser, which keeps it out of reach of the simple
+   regex scrapers that email harvesters rely on.
+   ============================================================ */
+const SITE = {
+  // Email, kept in two parts. user + "@" + domain is built at runtime.
+  emailUser: "hello",
+  emailDomain: "kalvisan.lv",
+
+  // Optional. Paste your full LinkedIn URL between the quotes to show the
+  // link. Leave it empty to hide LinkedIn entirely.
+  linkedin: "https://www.linkedin.com/in/kalvis-ko%C4%BCes%C5%86ikovs-45264785/",
+
+  github: "https://github.com/kalvisan"
+};
+
+/* ---- Contact wiring (email assembled here, not in the HTML) ---- */
+(function () {
+  const addr = SITE.emailUser + String.fromCharCode(64) + SITE.emailDomain;
+  const link = document.getElementById("email-link");
+  if (link) {
+    link.href = "mailto:" + addr;
+    link.textContent = addr;
+    link.setAttribute("aria-label", "Email " + addr);
+  }
+
+  if (SITE.linkedin) {
+    const links = document.getElementById("footer-links");
+    const a = document.createElement("a");
+    a.href = SITE.linkedin;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "LinkedIn";
+    links.appendChild(a);
+  }
+
+  const year = new Date().getFullYear();
+  const cr = document.getElementById("copyright");
+  if (cr) cr.innerHTML = "© " + year + " Kalvis K. Kolesnikovs";
+})();
+
+/* ---- Riga local clock ---- */
+(function () {
+  const el = document.getElementById("clock");
+  if (!el) return;
+  function tick() {
+    try {
+      const t = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Europe/Riga"
+      }).format(new Date());
+      el.textContent = "Riga · " + t;
+    } catch (e) {
+      el.textContent = "Riga";
+    }
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+/* ---- Experiments data. Add an entry per piece. ----
+   status "live" renders the row as a link. status "wip" greys it out. */
+const EXPERIMENTS = [
+  {
+    no: "001",
+    title: "ASCII Noise Field",
+    desc: "An animated flow field rendered as ASCII chevrons over a value-noise mask. It drifts and morphs across the screen with a grainy, dithered edge. Shipped as a single HTML file and a reusable React component.",
+    tags: ["canvas", "value-noise", "react"],
+    year: "2026",
+    href: "experiments/ascii-noise/",
+    status: "live"
+  },
+  {
+    no: "002",
+    title: "Schema Diff Viewer",
+    desc: "A side by side view of two PostgreSQL schema dumps that marks added, dropped, and changed columns inline, so a migration review reads in seconds.",
+    tags: ["postgres", "tooling", "diff"],
+    year: "2026",
+    href: "",
+    status: "wip"
+  },
+  {
+    no: "003",
+    title: "Queue Inspector",
+    desc: "A small dashboard for watching Laravel queue jobs as they run, with retry counts, timings, and a readable preview of each payload.",
+    tags: ["laravel", "queues", "ui"],
+    year: "2026",
+    href: "",
+    status: "wip"
+  }
+];
+
+(function () {
+  const list = document.getElementById("exp-list");
+  if (!list) return;
+  EXPERIMENTS.forEach(function (e) {
+    const live = e.status === "live" && e.href;
+    const el = document.createElement(live ? "a" : "div");
+    el.className = "exp-row" + (live ? "" : " wip");
+    if (live) {
+      el.href = e.href;
+      el.setAttribute("aria-label", e.title + ", open experiment");
+    }
+    const tags = e.tags.map(function (t) { return '<span class="tag">' + t + "</span>"; }).join("");
+    const arrow = live ? ' <span class="arrow" aria-hidden="true">&#8599;</span>' : "";
+    const statusText = live ? "live" : "in progress";
+    const statusClass = live ? "exp-status" : "exp-status is-wip";
+    el.innerHTML =
+      '<span class="exp-no">' + e.no + "</span>" +
+      '<div class="exp-main"><h3>' + e.title + arrow + "</h3>" +
+      "<p>" + e.desc + "</p>" +
+      '<div class="tags">' + tags + "</div></div>" +
+      '<div class="exp-side"><div class="' + statusClass + '">' + statusText + "</div>" +
+      "<div>" + e.year + "</div></div>";
+    list.appendChild(el);
+  });
+})();
+
+/* ============================================================
+   ASCII noise background.
+   A 3D value-noise field (fractional Brownian motion, time as the
+   third axis) sampled on a grid. Cells above a jittered threshold
+   draw a character: chevrons inside the band, round marks at the
+   rim so the edge dithers out. Throttled to about 20 fps, empty
+   cells are skipped, and a single static frame is drawn when the
+   visitor prefers reduced motion.
+   ============================================================ */
+(function () {
+  const canvas = document.getElementById("bg");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const CELL = 15;                 // grid cell size in css pixels
+  const FPS = 20;
+  const FRAME = 1000 / FPS;
+  const THRESHOLD = 0.56;          // noise value where the band begins
+  const EDGE = 0.05;               // how wide the dithered rim is
+  const JITTER = 0.04;             // per cell threshold jitter
+  const OCTAVES = 3;
+  const NOISE_SCALE = 0.055;       // spatial frequency of the field
+  const FLOW_SCALE = 0.03;         // frequency of the direction field
+  const DRIFT = 0.18;              // cells per second the field slides
+  const TIME_SPEED = 0.10;         // morph speed along the time axis
+  const PARALLAX = 18;             // px of pointer parallax
+
+  const CHEV = [">", "/", "^", "\\", "<", "/", "v", "\\"]; // E NE N NW W SW S SE
+  const RIM = ["·", "°", "o", "0"];
+
+  // Seeded value noise.
+  function buildNoise(seed) {
+    const perm = new Uint8Array(512);
+    const base = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) base[i] = i;
+    let s = seed >>> 0;
+    function rand() {
+      s = (s + 0x6D2B79F5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+    for (let i = 255; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      const tmp = base[i]; base[i] = base[j]; base[j] = tmp;
+    }
+    for (let i = 0; i < 512; i++) perm[i] = base[i & 255];
+
+    function h(xi, yi, zi) {
+      return perm[(perm[(perm[xi & 255] + yi) & 255] + zi) & 255] / 255;
+    }
+    function smooth(t) { return t * t * (3 - 2 * t); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    return function (x, y, z) {
+      const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+      const xf = x - xi, yf = y - yi, zf = z - zi;
+      const u = smooth(xf), v = smooth(yf), w = smooth(zf);
+      const c000 = h(xi, yi, zi),       c100 = h(xi + 1, yi, zi);
+      const c010 = h(xi, yi + 1, zi),   c110 = h(xi + 1, yi + 1, zi);
+      const c001 = h(xi, yi, zi + 1),   c101 = h(xi + 1, yi, zi + 1);
+      const c011 = h(xi, yi + 1, zi + 1), c111 = h(xi + 1, yi + 1, zi + 1);
+      const x00 = lerp(c000, c100, u), x10 = lerp(c010, c110, u);
+      const x01 = lerp(c001, c101, u), x11 = lerp(c011, c111, u);
+      return lerp(lerp(x00, x10, v), lerp(x01, x11, v), w);
+    };
+  }
+
+  let noise = buildNoise(1337);
+
+  function fbm(x, y, z) {
+    let amp = 0.5, freq = 1, sum = 0, norm = 0;
+    for (let i = 0; i < OCTAVES; i++) {
+      sum += amp * noise(x * freq, y * freq, z * freq);
+      norm += amp; amp *= 0.5; freq *= 2;
+    }
+    return sum / norm;
+  }
+
+  // Stable hash for per cell threshold jitter.
+  function cellHash(i, j) {
+    let n = (i * 374761393 + j * 668265263) | 0;
+    n = (n ^ (n >>> 13)) * 1274126177;
+    n ^= n >>> 16;
+    return ((n >>> 0) / 4294967296);
+  }
+
+  let dpr = 1, cols = 0, rows = 0, W = 0, H = 0;
+  let pointerX = 0, pointerY = 0;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.floor(W * dpr);
+    canvas.height = Math.floor(H * dpr);
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.font = (CELL - 2) + "px " + "ui-monospace, monospace";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    cols = Math.ceil(W / CELL) + 1;
+    rows = Math.ceil(H / CELL) + 1;
+  }
+
+  function draw(elapsed) {
+    ctx.clearRect(0, 0, W, H);
+    const driftX = elapsed * DRIFT;
+    const z = elapsed * TIME_SPEED;
+    const px = (pointerX - 0.5) * PARALLAX / CELL;
+    const py = (pointerY - 0.5) * PARALLAX / CELL;
+
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        const nx = (i + driftX + px) * NOISE_SCALE;
+        const ny = (j + py) * NOISE_SCALE;
+        const n = fbm(nx, ny, z);
+        const thr = THRESHOLD + (cellHash(i, j) - 0.5) * 2 * JITTER;
+        if (n < thr) continue; // empty cell, nothing to draw
+
+        const depth = n - thr;
+        let ch, alpha;
+        if (depth < EDGE) {
+          // dithered rim, lower brightness
+          ch = RIM[(Math.floor(cellHash(i + 7, j + 3) * RIM.length)) % RIM.length];
+          alpha = 0.10 + (depth / EDGE) * 0.18;
+        } else {
+          // inside the band, chevron by a separate flow field
+          const a = fbm((i + driftX) * FLOW_SCALE + 50, (j) * FLOW_SCALE + 50, z * 0.6);
+          const idx = (Math.round(a * 8) % 8 + 8) % 8;
+          ch = CHEV[idx];
+          alpha = 0.30 + Math.min(depth * 2.4, 0.6);
         }
-        for (var i = 0; i < blog.length; i++) {
-          $("#blogs").append(`
-            <a href="./blog/${blog[i].url_title}/" target="_blank">
-                <section>
-                    <img src="./blog/${blog[i].url_title}/${blog[i].top_image}">
-                    <div class="blog_container">
-                        <div class="section_title">${blog[i].title}</div>
-                        <div class="about_section">
-                            ${blog[i].sub_title}
-                        </div>
-                    </div>
-                </section>
-            </a>
-            `);
-        }
-      }).fail(function() {
-        return (document.getElementById("blog_section").style.display = "none");
-      });
-    </script>
+        ctx.fillStyle = "rgba(143, 209, 122, " + alpha.toFixed(3) + ")";
+        ctx.fillText(ch, i * CELL + CELL / 2, j * CELL + CELL / 2);
+      }
+    }
+  }
 
-    <script>
-      const magicProjectsGrid = new MagicGrid({
-        container: "#work_section",
-        animate: false,
-        gutter: 30, // default gutter size
-        static: true,
-        useMin: false,
-        maxColumns: 2,
-        useTransform: true
-      });
+  let last = 0;
+  let startStamp = null;
+  function loop(ts) {
+    if (startStamp === null) startStamp = ts;
+    if (ts - last >= FRAME) {
+      last = ts;
+      draw((ts - startStamp) / 1000);
+    }
+    raf = requestAnimationFrame(loop);
+  }
 
-      const magicForksGrid = new MagicGrid({
-        container: "#forks_section",
-        animate: false,
-        gutter: 30, // default gutter size
-        static: true,
-        useMin: false,
-        maxColumns: 2,
-        useTransform: true
-      });
+  let raf = null;
+  resize();
 
-      $("document").ready(() => {
-        magicProjectsGrid.listen();
-        magicForksGrid.listen();
-      });
-    </script>
-  
+  if (reduce) {
+    draw(12); // a single static, settled frame
+  } else {
+    window.addEventListener("pointermove", function (e) {
+      pointerX = e.clientX / W;
+      pointerY = e.clientY / H;
+    }, { passive: true });
 
-</body></html>
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+      } else if (!raf) {
+        last = 0;
+        raf = requestAnimationFrame(loop);
+      }
+    });
+
+    raf = requestAnimationFrame(loop);
+  }
+
+  let resizeTimer = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      resize();
+      if (reduce) draw(12);
+    }, 150);
+  });
+})();
+</script>
+</body>
+</html>
