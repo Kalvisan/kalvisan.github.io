@@ -133,18 +133,10 @@
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     height: 64px;
     gap: 24px;
   }
-  .brand {
-    font-family: var(--mono);
-    font-size: 0.9rem;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .brand .dim { color: var(--faint); }
   .nav-links { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); }
   .nav-links a {
     font-family: var(--mono);
@@ -447,7 +439,6 @@
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/">Kalvis<span class="dim">.dev</span></a>
     <nav class="nav-links" aria-label="Primary">
       <a class="secondary" href="#about">About</a>
       <a class="secondary" href="#experience">Experience</a>
