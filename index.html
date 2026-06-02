@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
 <title>Kalvis K. Kolesnikovs · Solution architect</title>
-<meta name="description" content="Solution architect and full-stack developer in Riga, Latvia. Ten years building SaaS platforms, data heavy admin tools, DevOps and AI systems with Laravel, React, PostgreSQL, Kubernetes, and Python." />
+<meta name="description" content="Solution architect and full-stack developer, available remotely worldwide and currently in Riga, Latvia. Ten years building products, with a focus on applied AI, machine learning, and robotics, in Python, TensorFlow, and React." />
 <meta name="author" content="Kalvis K. Kolesnikovs" />
 <meta name="theme-color" content="#0b0b0c" />
 <link rel="canonical" href="https://www.kalvisan.lv/" />
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Kalvis K. Kolesnikovs · Solution architect" />
-<meta property="og:description" content="I design and build software end to end, from PostgreSQL schemas and APIs to React interfaces, the Kubernetes infrastructure underneath, and the AI on top." />
+<meta property="og:description" content="I build software end to end, with a focus on applied AI and the robotics around it. Ten years leading teams and shipping products. Remote, available anywhere." />
 <meta property="og:url" content="https://www.kalvisan.lv/" />
 <meta property="og:site_name" content="Kalvis K. Kolesnikovs" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Kalvis K. Kolesnikovs · Solution architect" />
-<meta name="twitter:description" content="Solution architect in Riga. Laravel, React, PostgreSQL, Kubernetes, Python, and AI systems." />
+<meta name="twitter:description" content="Solution architect, remote and currently in Riga. Applied AI, machine learning, robotics, Python, and React." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -173,19 +173,6 @@
     letter-spacing: 0.04em;
     margin: 0 0 clamp(20px, 4vh, 40px);
   }
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(143, 209, 122, 0.6);
-    animation: pulse 2.6s ease-out infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(143,209,122,0.5); }
-    70% { box-shadow: 0 0 0 8px rgba(143,209,122,0); }
-    100% { box-shadow: 0 0 0 0 rgba(143,209,122,0); }
-  }
-  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
-
   h1.title {
     font-family: var(--sans);
     font-weight: 600;
@@ -454,11 +441,11 @@
   <!-- Hero -->
   <section class="hero" aria-label="Introduction">
     <div class="wrap">
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Solution architect · Riga, Latvia</p>
+      <p class="eyebrow">Solution architect · Remote · Riga, Latvia</p>
       <h1 class="title">Kalvis</h1>
       <p class="statement">
-        I design and build software end to end, from PostgreSQL schemas and APIs to the React interfaces on top.
-        <span class="soft">For ten years I have led teams and shipped SaaS platforms, data heavy admin tools, and the infrastructure and AI behind them. On the side I build small generative graphics experiments.</span>
+        I build software end to end, with a focus on applied AI and the robotics around it.
+        <span class="soft">Ten years leading teams and shipping products, from web platforms to physical devices. On the side I build small generative graphics experiments.</span>
       </p>
       <div class="cta">
         <a class="btn btn-primary" href="#work">See the work <span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -470,7 +457,7 @@
   <!-- Capability strip -->
   <div class="strip">
     <div class="wrap strip-inner" aria-label="Core tools">
-      <span>Laravel</span><span>React</span><span>PostgreSQL</span><span>Kubernetes</span><span>Python</span><span>TensorFlow</span>
+      <span>Python</span><span>TensorFlow</span><span>RAG</span><span>Robotics</span><span>React</span><span>Kubernetes</span>
     </div>
   </div>
 
@@ -482,12 +469,12 @@
         <h2 class="section-name" id="about-h">About</h2>
       </div>
       <div class="about-grid">
-        <p class="lead">I build the parts of products other people rely on. The data models, the APIs, the admin panels, the infrastructure, and now the AI underneath them.</p>
+        <p class="lead">I build the systems other people rely on. The work I care about most is applied AI and the robotics and hardware around it.</p>
         <div class="about-body">
-          <p>I have worked in software for over ten years, most of it as a solution architect and lead developer. I work mainly in Laravel and React on top of PostgreSQL, with Python across automation, data, and machine learning. I like strict schemas, reusable abstractions, and interfaces that are dense with information but still calm to use.</p>
-          <p>I also run the infrastructure: Docker and Kubernetes, CI/CD, and the observability that catches problems before users do. A growing part of my work is AI, from retrieval pipelines and model integration to training and serving my own models.</p>
-          <p>Alongside client and product work I build my own things, from internal tools to robotics and IoT, with custom boards and home automation. The experiments below come out of that habit of building things to understand them.</p>
-          <p class="about-meta">Open to new opportunities · Based in Riga, Latvia</p>
+          <p>Ten years in software, most of it as a solution architect and lead developer. What pulls me now is AI: retrieval and search, model integration, and training and serving my own models in Python and TensorFlow. I like getting a model to behave inside a real product, not just a notebook.</p>
+          <p>The other half is physical. I build robotics and IoT, from custom boards and sensors to home automation, and I compete in robot battles. It is the fastest way I know to tell whether an idea actually works.</p>
+          <p>I can still architect a full-stack product and the data layer behind it, and often do, but that is the foundation, not the headline. The experiments below come from the same habit of building things to understand them.</p>
+          <p class="about-meta">Open to new opportunities · Remote, available anywhere · Currently in Riga, Latvia</p>
         </div>
       </div>
     </div>
@@ -512,7 +499,7 @@
           <div class="cv-when">2024 to present</div>
           <div class="cv-body">
             <h3>Co-founder and CTO, operations SaaS</h3>
-            <p>An internal operations platform for large retail sites: maintenance workflows, task management, and reporting. Lead developer and solution architect across full-stack Laravel, PostgreSQL, and Kubernetes.</p>
+            <p>An internal operations platform for large retail sites: maintenance workflows, task management, and reporting. Lead developer and solution architect across the full stack and the platform it runs on.</p>
           </div>
         </div>
         <div class="cv-row">
@@ -542,20 +529,20 @@
       </div>
       <div class="stack-grid">
         <div class="stack-col">
-          <h3>Backend and architecture</h3>
-          <ul><li>Laravel</li><li>PHP</li><li>Python</li><li>PostgreSQL</li><li>REST and microservices</li><li>Queues and async</li></ul>
+          <h3>AI and machine learning</h3>
+          <ul><li>RAG and vector search</li><li>OpenAI and model APIs</li><li>Model training and serving</li><li>TensorFlow</li><li>Embeddings and retrieval</li><li>Agents and tooling</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>Robotics and hardware</h3>
+          <ul><li>Arduino and NodeMCU</li><li>PCB design and soldering</li><li>Sensors and IoT</li><li>HomeAssistant</li><li>Robot battles</li><li>Canvas and generative graphics</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>Backend and platform</h3>
+          <ul><li>Laravel and PHP</li><li>Python</li><li>Docker and Kubernetes</li><li>CI/CD and SRE</li><li>PostgreSQL</li><li>OpenTofu and Terraform</li></ul>
         </div>
         <div class="stack-col">
           <h3>Frontend</h3>
           <ul><li>React</li><li>Inertia</li><li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>React Native</li></ul>
-        </div>
-        <div class="stack-col">
-          <h3>Infrastructure and DevOps</h3>
-          <ul><li>Docker</li><li>Kubernetes</li><li>CI/CD pipelines</li><li>OpenTofu and Terraform</li><li>Observability and SRE</li></ul>
-        </div>
-        <div class="stack-col">
-          <h3>AI, data and hardware</h3>
-          <ul><li>RAG and vector search</li><li>OpenAI and model APIs</li><li>Model training with TensorFlow</li><li>Web scraping and ETL</li><li>Robotics and IoT</li><li>Canvas and generative graphics</li></ul>
         </div>
       </div>
     </div>
@@ -674,18 +661,18 @@ const EXPERIMENTS = [
   },
   {
     no: "002",
-    title: "Schema Diff Viewer",
-    desc: "A side by side view of two PostgreSQL schema dumps that marks added, dropped, and changed columns inline, so a migration review reads in seconds.",
-    tags: ["postgres", "tooling", "diff"],
+    title: "Browser RAG Demo",
+    desc: "A single page that embeds a handful of documents in the browser and answers questions over them, retrieval and grounding with no server behind it.",
+    tags: ["rag", "embeddings", "web"],
     year: "2026",
     href: "",
     status: "wip"
   },
   {
     no: "003",
-    title: "Queue Inspector",
-    desc: "A small dashboard for watching Laravel queue jobs as they run, with retry counts, timings, and a readable preview of each payload.",
-    tags: ["laravel", "queues", "ui"],
+    title: "Sensor Field",
+    desc: "A live view of readings from a small Arduino sensor rig, drawn as a drifting field so a change in the room shows up as motion on screen.",
+    tags: ["iot", "arduino", "canvas"],
     year: "2026",
     href: "",
     status: "wip"

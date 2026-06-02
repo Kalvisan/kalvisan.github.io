@@ -11,28 +11,28 @@
 
 ```yaml
 role:     Solution architect and full-stack developer
-location: Riga, Latvia
+focus:    Applied AI, machine learning, and robotics
+location: Remote, available anywhere. Currently in Riga, Latvia
 years:    10+ in software, much of it leading teams
 status:   Open to new opportunities
 site:     https://www.kalvisan.lv
 ```
 
-I design and build software end to end, from PostgreSQL schemas and APIs to the
-React interfaces on top, the Kubernetes infrastructure underneath, and the AI on
-top of that. On the side I build small generative graphics experiments. This
-repository is the source of my site. Plain HTML, CSS, and vanilla JavaScript, no
-build step.
+I build software end to end, with a focus on applied AI and the robotics around
+it. The full-stack and data work is there when a project needs it, but it is the
+foundation, not the headline. On the side I build small generative graphics
+experiments. This repository is the source of my site. Plain HTML, CSS, and
+vanilla JavaScript, no build step.
 
 <br>
 
 ### `$ cat stack.txt`
 
 ```text
-backend   ·  Laravel   PHP        Python      PostgreSQL   REST   microservices
-frontend  ·  React     Inertia    Next.js     TypeScript   Tailwind   React Native
-infra     ·  Docker    Kubernetes CI/CD       OpenTofu     Terraform  SRE
-ai/data   ·  RAG       vector search   OpenAI and model APIs   TensorFlow   ETL
-hardware  ·  Robotics and IoT   Arduino and NodeMCU   PCB   generative graphics
+ai        ·  RAG   vector search   model training   TensorFlow   agents   embeddings
+hardware  ·  robotics   Arduino   NodeMCU   PCB   sensors   HomeAssistant   canvas
+backend   ·  Laravel   PHP   Python   Docker   Kubernetes   CI/CD   PostgreSQL
+frontend  ·  React   Inertia   Next.js   TypeScript   Tailwind   React Native
 ```
 
 <br>
@@ -63,13 +63,13 @@ hardware  ·  Robotics and IoT   Arduino and NodeMCU   PCB   generative graphics
                                     morphing with a grainy, dithered edge.
                                     -> experiments/ascii-noise/
 
-[ wip  ]  002  Schema Diff Viewer  a side by side view of two PostgreSQL
-                                    schema dumps, marking added, dropped,
-                                    and changed columns inline.
+[ wip  ]  002  Browser RAG Demo    embeds a handful of documents in the
+                                    browser and answers questions over them,
+                                    retrieval and grounding with no server.
 
-[ wip  ]  003  Queue Inspector     a small dashboard for watching Laravel
-                                    queue jobs run, with retries, timings,
-                                    and a readable payload preview.
+[ wip  ]  003  Sensor Field        a live view of an Arduino sensor rig,
+                                    drawn as a drifting field so a change in
+                                    the room shows up as motion on screen.
 ```
 
 The live pieces are open source and free to use in your own projects.
