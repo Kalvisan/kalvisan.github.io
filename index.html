@@ -390,13 +390,16 @@
   .contact-label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; margin: 0 0 22px; }
   .email-link {
     display: inline-block;
+    max-width: 100%;
     font-weight: 600;
-    font-size: clamp(2rem, 7vw, 5.5rem);
-    line-height: 1.05;
+    /* Sized so the long address fits on one line from small phones to 4K,
+       with wrapping as a fallback so it can never cause horizontal scroll. */
+    font-size: clamp(1.35rem, 5.6vw, 4.4rem);
+    line-height: 1.1;
     letter-spacing: -0.03em;
     text-decoration: none;
     color: var(--fg);
-    word-break: break-word;
+    overflow-wrap: anywhere;
   }
   .email-link:hover { color: var(--accent); }
   .email-fallback { font-family: var(--mono); font-size: 1rem; color: var(--muted); }
@@ -594,8 +597,8 @@
    ============================================================ */
 const SITE = {
   // Email, kept in two parts. user + "@" + domain is built at runtime.
-  emailUser: "hello",
-  emailDomain: "kalvisan.lv",
+  emailUser: "kalvis.kolesnikovs",
+  emailDomain: "gmail.com",
 
   // Optional. Paste your full LinkedIn URL between the quotes to show the
   // link. Leave it empty to hide LinkedIn entirely.
