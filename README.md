@@ -58,16 +58,20 @@ frontend  ·  React   Inertia   Next.js   TypeScript   Tailwind   React Native
 ### `$ ls experiments/`
 
 ```text
-[ live ]  001  ASCII Noise Field   an animated flow field of ASCII chevrons
+[ live ]  001  OpenClaw Pixel Office  a pixel-art office you build from 16x16
+                                      tilesets and fill with AI agents you can
+                                      talk to. -> openclaw-pixel-office/
+
+[ live ]  002  ASCII Noise Field   an animated flow field of ASCII chevrons
                                     over a value-noise mask, drifting and
                                     morphing with a grainy, dithered edge.
                                     -> experiments/ascii-noise/
 
-[ wip  ]  002  Browser RAG Demo    embeds a handful of documents in the
+[ wip  ]  003  Browser RAG Demo    embeds a handful of documents in the
                                     browser and answers questions over them,
                                     retrieval and grounding with no server.
 
-[ wip  ]  003  Sensor Field        a live view of an Arduino sensor rig,
+[ wip  ]  004  Sensor Field        a live view of an Arduino sensor rig,
                                     drawn as a drifting field so a change in
                                     the room shows up as motion on screen.
 ```
