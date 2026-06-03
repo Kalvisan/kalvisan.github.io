@@ -105,7 +105,7 @@ const SITE = {
   emailUser: "hello",          // email is built in the browser, never plain in source
   emailDomain: "kalvisan.lv",
   linkedin: "https://www.linkedin.com/in/...",   // empty hides the link
-  github: "https://github.com/kalvisan"
+  gitlab: "https://gitlab.com/kalvis2"
 };
 ```
 
@@ -134,4 +134,4 @@ python3 -m http.server 8000
 > / ^ \   handmade, with a live value-noise field running behind it   \ v / <
 ```
 
-[**Visit the site**](https://www.kalvisan.lv) &nbsp;·&nbsp; [**GitHub**](https://github.com/kalvisan) &nbsp;·&nbsp; [**LinkedIn**](https://www.linkedin.com/in/kalvis-ko%C4%BCes%C5%86ikovs-45264785/)
+[**Visit the site**](https://www.kalvisan.lv) &nbsp;·&nbsp; [**GitLab**](https://gitlab.com/kalvis2) &nbsp;·&nbsp; [**LinkedIn**](https://www.linkedin.com/in/kalvis-ko%C4%BCes%C5%86ikovs-45264785/)
