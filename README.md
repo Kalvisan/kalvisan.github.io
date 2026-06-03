@@ -10,19 +10,18 @@
 ```
 
 ```yaml
-role:     Solution architect and full-stack developer
-focus:    Applied AI, machine learning, and robotics
+role:     Builder and explorer. Solution architect by trade
+focus:    Applied AI, robotics, and whatever catches my interest
 location: Remote, available anywhere. Currently in Riga, Latvia
 years:    10+ in software, much of it leading teams
 status:   Open to new opportunities
 site:     https://www.kalvisan.lv
 ```
 
-I build software end to end, with a focus on applied AI and the robotics around
-it. The full-stack and data work is there when a project needs it, but it is the
-foundation, not the headline. On the side I build small generative graphics
-experiments. This repository is the source of my site. Plain HTML, CSS, and
-vanilla JavaScript, no build step.
+I build things and like to find out how they work, mostly AI and robotics, but I
+follow whatever catches my interest. This site is where I publish what I research
+and build, because I like to share it. This repository is the source of the site.
+Plain HTML, CSS, and vanilla JavaScript, no build step.
 
 <br>
 
