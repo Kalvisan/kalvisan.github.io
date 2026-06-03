@@ -701,7 +701,7 @@ const EXPERIMENTS = [
     tags: ["ai", "agents", "pixel-art"],
     year: "2026",
     href: "openclaw-pixel-office/",
-    video: "media/openclaw-pixel-office.mp4",
+    video: "assets/video/openclaw-pixel-office",
     status: "live"
   },
   {
@@ -711,7 +711,7 @@ const EXPERIMENTS = [
     tags: ["canvas", "value-noise", "react"],
     year: "2026",
     href: "experiments/ascii-noise/",
-    video: "media/ascii-noise.mp4",
+    video: "assets/video/ascii-noise",
     status: "live"
   },
   {
@@ -721,7 +721,7 @@ const EXPERIMENTS = [
     tags: ["rag", "embeddings", "web"],
     year: "2026",
     href: "",
-    video: "media/browser-rag-demo.mp4",
+    video: "assets/video/browser-rag-demo",
     status: "wip"
   },
   {
@@ -731,7 +731,7 @@ const EXPERIMENTS = [
     tags: ["iot", "arduino", "canvas"],
     year: "2026",
     href: "",
-    video: "media/sensor-field.mp4",
+    video: "assets/video/sensor-field",
     status: "wip"
   }
 ];
@@ -753,8 +753,11 @@ const EXPERIMENTS = [
     const statusClass = live ? "exp-status" : "exp-status is-wip";
     const preview = e.video
       ? '<div class="exp-preview"><div class="exp-preview-inner">' +
-        '<video class="exp-video" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true" src="' +
-        e.video + '"' + (e.poster ? ' poster="' + e.poster + '"' : "") + "></video></div></div>"
+        '<video class="exp-video" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"' +
+        (e.poster ? ' poster="' + e.poster + '"' : "") + ">" +
+        '<source src="' + e.video + '.webm" type="video/webm">' +
+        '<source src="' + e.video + '.mp4" type="video/mp4">' +
+        "</video></div></div>"
       : "";
     el.innerHTML =
       '<div class="exp-head">' +
@@ -776,7 +779,16 @@ const EXPERIMENTS = [
   list.querySelectorAll(".exp-video").forEach(function (v) {
     v.muted = true;
     const preview = v.closest(".exp-preview");
-    v.addEventListener("error", function () { if (preview) preview.style.display = "none"; });
+    // Hide the preview only if every source fails to load (for example a clip
+    // that has not been added yet), so the list never shows a broken frame.
+    const sources = v.querySelectorAll("source");
+    let failed = 0;
+    sources.forEach(function (s) {
+      s.addEventListener("error", function () {
+        failed += 1;
+        if (failed >= sources.length && preview) preview.style.display = "none";
+      });
+    });
     const row = v.closest(".exp-row");
     if (canHover) {
       const play = function () { v.play().catch(function () {}); };
