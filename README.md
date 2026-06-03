@@ -12,7 +12,7 @@
 ```yaml
 role:     Builder and explorer. Solution architect by trade
 focus:    Applied AI, robotics, and whatever catches my interest
-location: Remote, available anywhere. Currently in Riga, Latvia
+location: Remote. Based in Riga, Latvia
 years:    10+ in software, much of it leading teams
 status:   Open to new opportunities
 site:     https://www.kalvisan.lv
@@ -21,7 +21,6 @@ site:     https://www.kalvisan.lv
 I build things and like to find out how they work, mostly AI and robotics, but I
 follow whatever catches my interest. This site is where I publish what I research
 and build, because I like to share it. This repository is the source of the site.
-Plain HTML, CSS, and vanilla JavaScript, no build step.
 
 <br>
 
@@ -125,7 +124,7 @@ python3 -m http.server 8000
 <br>
 
 ```
-> / ^ \   built with plain web tech and a value-noise field   \ v / <
+> / ^ \   handmade, with a live value-noise field running behind it   \ v / <
 ```
 
 [**Visit the site**](https://www.kalvisan.lv) &nbsp;·&nbsp; [**GitHub**](https://github.com/kalvisan) &nbsp;·&nbsp; [**LinkedIn**](https://www.linkedin.com/in/kalvis-ko%C4%BCes%C5%86ikovs-45264785/)
