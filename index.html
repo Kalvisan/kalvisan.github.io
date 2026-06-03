@@ -46,7 +46,7 @@
     --faint: #5d5a51;
     --line: rgba(234, 230, 221, 0.10);
     --line-strong: rgba(234, 230, 221, 0.20);
-    --accent: #8fd17a;
+    --accent: #ff7a18;
     --card: rgba(234, 230, 221, 0.025);
 
     --maxw: 1120px;
@@ -1094,7 +1094,7 @@ const EXPERIMENTS = [
           ch = CHEV[idx];
           alpha = 0.30 + Math.min(depth * 2.4, 0.6);
         }
-        ctx.fillStyle = "rgba(143, 209, 122, " + alpha.toFixed(3) + ")";
+        ctx.fillStyle = "rgba(255, 122, 24, " + alpha.toFixed(3) + ")";
         ctx.fillText(ch, i * CELL + CELL / 2, j * CELL + CELL / 2);
       }
     }

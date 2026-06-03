@@ -17,7 +17,7 @@
     --bg: #0b0b0c;
     --fg: #eae6dd;
     --muted: #9b978c;
-    --accent: #8fd17a;
+    --accent: #ff7a18;
     --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
   * { box-sizing: border-box; }
@@ -188,7 +188,7 @@
           ch = CHEV[(Math.round(a * 8) % 8 + 8) % 8];
           alpha = 0.4 + Math.min(depth * 2.4, 0.55);
         }
-        ctx.fillStyle = "rgba(143, 209, 122, " + alpha.toFixed(3) + ")";
+        ctx.fillStyle = "rgba(255, 122, 24, " + alpha.toFixed(3) + ")";
         ctx.fillText(ch, i * CELL + CELL / 2, j * CELL + CELL / 2);
       }
     }

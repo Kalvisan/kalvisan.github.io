@@ -77,7 +77,7 @@ export default function AsciiNoise({
   drift = 0.18,
   timeSpeed = 0.1,
   parallax = 18,
-  color = "143, 209, 122",
+  color = "255, 122, 24",
   background = null, // null keeps the canvas transparent
   maxDpr = 1.5,
   className,
