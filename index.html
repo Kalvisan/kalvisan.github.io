@@ -335,15 +335,18 @@
   /* Experiments */
   .exp-list { border-top: 1px solid var(--line); }
   .exp-row {
-    display: grid;
-    grid-template-columns: 48px 1fr auto;
-    gap: clamp(16px, 3vw, 48px);
-    align-items: baseline;
+    display: block;
     padding: clamp(24px, 3.5vh, 40px) 4px;
     border-bottom: 1px solid var(--line);
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+  .exp-head {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: clamp(16px, 3vw, 48px);
+    align-items: baseline;
   }
   a.exp-row:hover { background: var(--card); padding-left: 16px; }
   .exp-row.wip { opacity: 0.45; }
@@ -373,6 +376,43 @@
   .exp-side { text-align: right; font-family: var(--mono); font-size: 0.78rem; color: var(--faint); white-space: nowrap; }
   .exp-status { color: var(--accent); }
   .exp-status.is-wip { color: var(--faint); }
+
+  /* Hover video preview. Collapsed on devices that hover, revealed on hover or
+     keyboard focus. On devices without hover it is always shown and plays when
+     it scrolls into view. */
+  .exp-preview {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    margin-top: 0;
+    transition: grid-template-rows 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+  }
+  .exp-preview-inner {
+    overflow: hidden;
+    min-height: 0;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+  }
+  .exp-preview video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #000;
+  }
+  .exp-row:hover .exp-preview,
+  a.exp-row:focus-visible .exp-preview {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 18px;
+  }
+  @media (hover: none) {
+    .exp-preview { grid-template-rows: 1fr; opacity: 1; margin-top: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exp-preview { transition: none; }
+  }
+
   .exp-note {
     margin-top: clamp(24px, 4vh, 40px);
     font-family: var(--mono);
@@ -381,7 +421,7 @@
   }
 
   @media (max-width: 640px) {
-    .exp-row { grid-template-columns: 1fr; gap: 12px; }
+    .exp-head { grid-template-columns: 1fr; gap: 12px; }
     .exp-side { text-align: left; }
     .exp-no { display: none; }
   }
@@ -661,6 +701,7 @@ const EXPERIMENTS = [
     tags: ["ai", "agents", "pixel-art"],
     year: "2026",
     href: "openclaw-pixel-office/",
+    video: "media/openclaw-pixel-office.mp4",
     status: "live"
   },
   {
@@ -670,6 +711,7 @@ const EXPERIMENTS = [
     tags: ["canvas", "value-noise", "react"],
     year: "2026",
     href: "experiments/ascii-noise/",
+    video: "media/ascii-noise.mp4",
     status: "live"
   },
   {
@@ -679,6 +721,7 @@ const EXPERIMENTS = [
     tags: ["rag", "embeddings", "web"],
     year: "2026",
     href: "",
+    video: "media/browser-rag-demo.mp4",
     status: "wip"
   },
   {
@@ -688,6 +731,7 @@ const EXPERIMENTS = [
     tags: ["iot", "arduino", "canvas"],
     year: "2026",
     href: "",
+    video: "media/sensor-field.mp4",
     status: "wip"
   }
 ];
@@ -707,14 +751,49 @@ const EXPERIMENTS = [
     const arrow = live ? ' <span class="arrow" aria-hidden="true">&#8599;</span>' : "";
     const statusText = live ? "live" : "in progress";
     const statusClass = live ? "exp-status" : "exp-status is-wip";
+    const preview = e.video
+      ? '<div class="exp-preview"><div class="exp-preview-inner">' +
+        '<video class="exp-video" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true" src="' +
+        e.video + '"' + (e.poster ? ' poster="' + e.poster + '"' : "") + "></video></div></div>"
+      : "";
     el.innerHTML =
-      '<span class="exp-no">' + e.no + "</span>" +
-      '<div class="exp-main"><h3>' + e.title + arrow + "</h3>" +
-      "<p>" + e.desc + "</p>" +
-      '<div class="tags">' + tags + "</div></div>" +
-      '<div class="exp-side"><div class="' + statusClass + '">' + statusText + "</div>" +
-      "<div>" + e.year + "</div></div>";
+      '<div class="exp-head">' +
+        '<span class="exp-no">' + e.no + "</span>" +
+        '<div class="exp-main"><h3>' + e.title + arrow + "</h3>" +
+        "<p>" + e.desc + "</p>" +
+        '<div class="tags">' + tags + "</div></div>" +
+        '<div class="exp-side"><div class="' + statusClass + '">' + statusText + "</div>" +
+        "<div>" + e.year + "</div></div>" +
+      "</div>" +
+      preview;
     list.appendChild(el);
+  });
+
+  // Play previews on hover or focus where hover exists, otherwise play them
+  // as they scroll into view. Hide a preview if its video fails to load.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  list.querySelectorAll(".exp-video").forEach(function (v) {
+    v.muted = true;
+    const preview = v.closest(".exp-preview");
+    v.addEventListener("error", function () { if (preview) preview.style.display = "none"; });
+    const row = v.closest(".exp-row");
+    if (canHover) {
+      const play = function () { v.play().catch(function () {}); };
+      const stop = function () { v.pause(); };
+      row.addEventListener("mouseenter", play);
+      row.addEventListener("mouseleave", stop);
+      row.addEventListener("focusin", play);
+      row.addEventListener("focusout", stop);
+    } else if (!reduceMotion && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) v.play().catch(function () {});
+          else v.pause();
+        });
+      }, { threshold: 0.35 });
+      io.observe(v);
+    }
   });
 })();
 

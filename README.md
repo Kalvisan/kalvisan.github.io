@@ -86,6 +86,7 @@ The live pieces are open source and free to use in your own projects.
 ├── .nojekyll                       tells GitHub Pages to skip Jekyll
 ├── CNAME                           custom domain, do not edit
 ├── README.md                       you are here
+├── media/                          hover preview clips for the experiments
 └── experiments/
     └── ascii-noise/
         ├── index.html              standalone experiment page
