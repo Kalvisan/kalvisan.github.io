@@ -82,7 +82,7 @@ The live pieces are open source and free to use in your own projects.
 
 ```text
 .
-├── index.html                      portfolio: nav, hero, about, experience, stack, experiments, contact
+├── index.html                      portfolio: nav, hero, about, experience, stack, experiments, writing, contact
 ├── .nojekyll                       tells GitHub Pages to skip Jekyll
 ├── CNAME                           custom domain, do not edit
 ├── README.md                       you are here
@@ -113,6 +113,11 @@ Experience comes from the markup in the `#experience` section, and projects come
 from the `EXPERIMENTS` array. Each project has `no`, `title`, `desc`, `tags`,
 `year`, `href`, and `status`. A `status` of `live` renders the row as a link,
 `wip` greys it out.
+
+The Writing section pulls my latest Medium posts in the browser when the page
+loads, so a new article shows up on its own with no rebuild. To point it at a
+different Medium profile, change `USER` in the writing script near the bottom of
+`index.html`.
 
 <br>
 

@@ -419,6 +419,36 @@
     font-size: 0.8rem;
     color: var(--faint);
   }
+  .exp-note a { color: var(--accent); text-decoration: none; }
+  .exp-note a:hover { text-decoration: underline; }
+
+  /* Writing (latest Medium posts, fetched in the browser) */
+  .writing-list { border-top: 1px solid var(--line); }
+  .writing-item {
+    display: block;
+    padding: clamp(20px, 3vh, 34px) 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+  a.writing-item:hover { background: var(--card); padding-left: 16px; }
+  .writing-meta { font-family: var(--mono); font-size: 0.74rem; color: var(--faint); letter-spacing: 0.04em; margin-bottom: 8px; }
+  .writing-item h3 {
+    margin: 0 0 10px;
+    font-size: clamp(1.15rem, 2.1vw, 1.6rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .writing-item h3 .arrow { color: var(--accent); font-family: var(--mono); font-size: 0.8em; transition: transform 0.2s ease; }
+  a.writing-item:hover h3 .arrow { transform: translate(3px, -3px); }
+  .writing-item p { margin: 0 0 14px; color: var(--muted); max-width: 70ch; font-size: 0.96rem; }
+  .writing-status { font-family: var(--mono); font-size: 0.85rem; color: var(--faint); padding: 22px 4px; }
+  .writing-status a { color: var(--accent); text-decoration: none; }
+  .writing-status a:hover { text-decoration: underline; }
 
   @media (max-width: 640px) {
     .exp-head { grid-template-columns: 1fr; gap: 12px; }
@@ -475,6 +505,7 @@
       <a class="secondary" href="#experience">Experience</a>
       <a class="secondary" href="#stack">Stack</a>
       <a class="secondary" href="#work">Work</a>
+      <a class="secondary" href="#writing">Writing</a>
       <a class="secondary" href="#contact">Contact</a>
       <a class="nav-ext" id="nav-github" href="https://github.com/kalvisan" rel="noopener" target="_blank">GitHub</a>
     </nav>
@@ -603,13 +634,27 @@
       <p class="exp-note">The live pieces are open source and free to use in your own projects.</p>
     </div>
   </section>
+
+  <!-- Writing -->
+  <section id="writing" aria-labelledby="writing-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-no">05</span>
+        <h2 class="section-name" id="writing-h">Writing</h2>
+      </div>
+      <div class="writing-list" id="writing-list">
+        <p class="writing-status" id="writing-status">Loading the latest posts from Medium.</p>
+      </div>
+      <p class="exp-note"><a id="medium-more" href="https://medium.com/@kalvis.kolesnikovs" target="_blank" rel="noopener">All of my writing on Medium</a></p>
+    </div>
+  </section>
 </main>
 
 <!-- Contact -->
 <footer class="contact" id="contact" aria-labelledby="contact-h">
   <div class="wrap">
     <div class="section-head">
-      <span class="section-no">05</span>
+      <span class="section-no">06</span>
       <h2 class="section-name" id="contact-h">Contact</h2>
     </div>
     <p class="contact-label">Have a project, a role, or a question?</p>
@@ -807,6 +852,111 @@ const EXPERIMENTS = [
       io.observe(v);
     }
   });
+})();
+
+/* ============================================================
+   Latest writing from Medium.
+   Fetched in the browser on page load, so a new article shows up
+   on its own with no rebuild. rss2json is the primary source (it
+   sends CORS headers); allorigins is a fallback. Results are cached
+   in localStorage so repeat visits render instantly, then refresh.
+   ============================================================ */
+(function () {
+  const list = document.getElementById("writing-list");
+  if (!list) return;
+  const USER = "kalvis.kolesnikovs";
+  const FEED = "https://medium.com/feed/@" + USER;
+  const MAX = 5;
+  const CACHE_KEY = "kalvisan_medium_v1";
+
+  function fmtDate(s) {
+    const d = new Date((s || "").replace(" ", "T"));
+    if (isNaN(d.getTime())) return "";
+    return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" }).format(d);
+  }
+  function textFrom(html) {
+    const t = document.createElement("div");
+    t.innerHTML = html || "";
+    return (t.textContent || "").replace(/\s+/g, " ").trim();
+  }
+  function truncate(s, n) { return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, "") + "…" : s; }
+  function cleanLink(u) { return (u || "").split("?")[0]; }
+  function esc(s) { const d = document.createElement("div"); d.textContent = s || ""; return d.innerHTML; }
+
+  function render(items) {
+    if (!items || !items.length) { showFallback(); return; }
+    list.innerHTML = "";
+    items.slice(0, MAX).forEach(function (it) {
+      const a = document.createElement("a");
+      a.className = "writing-item";
+      a.href = cleanLink(it.link);
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.setAttribute("aria-label", it.title);
+      const date = fmtDate(it.pubDate || it.date);
+      const excerpt = truncate(textFrom(it.description || it.content || ""), 170);
+      const cats = (it.categories || []).slice(0, 4)
+        .map(function (c) { return '<span class="tag">' + esc(c) + "</span>"; }).join("");
+      a.innerHTML =
+        (date ? '<div class="writing-meta">' + date + "</div>" : "") +
+        "<h3>" + esc(it.title) + ' <span class="arrow" aria-hidden="true">&#8599;</span></h3>' +
+        (excerpt ? "<p>" + esc(excerpt) + "</p>" : "") +
+        (cats ? '<div class="tags">' + cats + "</div>" : "");
+      list.appendChild(a);
+    });
+  }
+
+  function showFallback() {
+    const s = document.getElementById("writing-status");
+    if (s && list.querySelector(".writing-item") === null) {
+      s.innerHTML = 'My latest writing is on <a href="https://medium.com/@' + USER + '" target="_blank" rel="noopener">Medium</a>.';
+    }
+  }
+
+  function cacheItems(items) {
+    try {
+      const slim = items.slice(0, MAX).map(function (it) {
+        return {
+          title: it.title,
+          link: it.link,
+          pubDate: it.pubDate || it.date,
+          description: textFrom(it.description || it.content || "").slice(0, 260),
+          categories: (it.categories || []).slice(0, 4)
+        };
+      });
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), items: slim }));
+    } catch (e) {}
+  }
+  function readCache() {
+    try { return JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) { return null; }
+  }
+
+  // Show cached posts instantly, then refresh in the background.
+  const cached = readCache();
+  if (cached && cached.items && cached.items.length) render(cached.items);
+
+  function fromRss2json() {
+    return fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(FEED))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.status === "ok" && d.items) return d.items; throw new Error("rss2json"); });
+  }
+  function fromAllorigins() {
+    return fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(FEED))
+      .then(function (r) { return r.text(); })
+      .then(function (xml) {
+        const doc = new DOMParser().parseFromString(xml, "text/xml");
+        return Array.prototype.map.call(doc.querySelectorAll("item"), function (n) {
+          const cats = Array.prototype.map.call(n.querySelectorAll("category"), function (c) { return c.textContent; });
+          function pick(tag) { const el = n.querySelector(tag); return el ? el.textContent : ""; }
+          return { title: pick("title"), link: pick("link"), pubDate: pick("pubDate"), description: pick("description"), categories: cats };
+        });
+      });
+  }
+
+  fromRss2json().catch(fromAllorigins).then(function (items) {
+    if (items && items.length) { render(items); cacheItems(items); }
+    else showFallback();
+  }).catch(showFallback);
 })();
 
 /* ============================================================
