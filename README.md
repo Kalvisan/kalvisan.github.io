@@ -12,7 +12,7 @@
 ```yaml
 role:     Builder and explorer. Solution architect by trade
 focus:    Applied AI, robotics, and whatever catches my interest
-location: Remote. Based in Riga, Latvia
+location: Riga, Latvia
 years:    10+ in software, much of it leading teams
 status:   Open to new opportunities
 site:     https://www.kalvisan.lv
@@ -56,9 +56,9 @@ frontend  ·  React   Inertia   Next.js   TypeScript   Tailwind   React Native
 ### `$ ls experiments/`
 
 ```text
-[ live ]  001  OpenClaw Pixel Office  a pixel-art office you build from 16x16
-                                      tilesets and fill with AI agents you can
-                                      talk to. -> openclaw-pixel-office/
+[ live ]  001  OpenClaw Pixel Office  a pixel-art office with LLM-driven AI
+                                      agents that act in the scene and talk
+                                      back. -> case-studies/openclaw/
 
 [ live ]  002  ASCII Noise Field   an animated flow field of ASCII chevrons
                                     over a value-noise mask, drifting and
@@ -83,11 +83,13 @@ The live pieces are open source and free to use in your own projects.
 ```text
 .
 ├── index.html                      portfolio: nav, hero, about, experience, stack, experiments, writing, contact
+├── favicon.ico                     site icon (svg + apple-touch + og image live in assets/)
 ├── .nojekyll                       tells GitHub Pages to skip Jekyll
 ├── CNAME                           custom domain, do not edit
 ├── README.md                       you are here
-├── assets/
-│   └── video/                      hover preview clips (webm + mp4)
+├── assets/                         favicon.svg, apple-touch-icon, og-image, and video/ previews
+├── case-studies/
+│   └── openclaw/                   technical write-up of the OpenClaw AI app
 └── experiments/
     └── ascii-noise/
         ├── index.html              standalone experiment page

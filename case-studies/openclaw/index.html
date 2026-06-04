@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<title>OpenClaw Pixel Office · Case study · Kalvis</title>
+<meta name="description" content="How OpenClaw Pixel Office works: a pixel-art sandbox where LLM-driven agents perceive a tile world, decide what to do, and talk back in a chat. Architecture and technical notes." />
+<meta name="theme-color" content="#0b0b0c" />
+<link rel="canonical" href="https://www.kalvisan.lv/case-studies/openclaw/" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="OpenClaw Pixel Office · Case study" />
+<meta property="og:description" content="A pixel-art sandbox where LLM-driven agents perceive a tile world, decide, and talk back. Architecture and technical notes." />
+<meta property="og:url" content="https://www.kalvisan.lv/case-studies/openclaw/" />
+<meta property="og:image" content="https://www.kalvisan.lv/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.kalvisan.lv/assets/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --fg: #eae6dd;
+    --muted: #9b978c;
+    --faint: #5d5a51;
+    --line: rgba(234, 230, 221, 0.10);
+    --line-strong: rgba(234, 230, 221, 0.20);
+    --accent: #ff7a18;
+    --card: rgba(234, 230, 221, 0.025);
+    --maxw: 820px;
+    --pad: clamp(20px, 5vw, 56px);
+    --fs: 16px;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (min-width: 1920px) { :root { --maxw: 960px; --fs: 18px; } }
+  @media (min-width: 2560px) { :root { --maxw: 1100px; --fs: 21px; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-size: var(--fs); scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    line-height: 1.7;
+    color: var(--fg);
+    background: var(--bg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+  .topbar { border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(8px); background: rgba(11,11,12,0.78); }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .back { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+  .back:hover { color: var(--fg); }
+  .kicker { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+  header.hero { padding-block: clamp(48px, 9vh, 96px) clamp(24px, 4vh, 44px); }
+  .eyebrow { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.04em; margin: 0 0 16px; }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 20px; }
+  .lede { font-family: var(--serif); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.7rem); line-height: 1.35; color: var(--fg); margin: 0 0 28px; max-width: 40ch; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+  .pill { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); border: 1px solid var(--line); padding: 5px 12px; border-radius: 999px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.82rem; text-decoration: none; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line-strong); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #1a0e02; border-color: var(--accent); font-weight: 600; }
+  .btn-ghost:hover { border-color: var(--fg); }
+
+  main { padding-bottom: clamp(60px, 10vh, 120px); }
+  section { padding-block: clamp(28px, 5vh, 48px); border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .h2-no { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
+  p { color: var(--muted); margin: 0 0 1.1em; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  section p:last-child { margin-bottom: 0; }
+  ul { color: var(--muted); padding-left: 1.2em; margin: 0 0 1.1em; }
+  li { margin-bottom: 0.5em; }
+
+  /* Architecture diagram */
+  .flow { display: flex; flex-direction: column; gap: 0; margin: 8px 0 4px; }
+  .node {
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: var(--card);
+  }
+  .node .n-label { font-family: var(--mono); font-size: 0.82rem; color: var(--fg); font-weight: 500; }
+  .node .n-label b { color: var(--accent); font-weight: 500; }
+  .node .n-desc { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+  .connector { display: flex; justify-content: center; align-items: center; height: 34px; color: var(--accent); font-family: var(--mono); font-size: 1rem; }
+  .connector span { opacity: 0.8; }
+  .loop-note { font-family: var(--mono); font-size: 0.72rem; color: var(--faint); text-align: center; margin-top: 10px; }
+
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .stack-col { background: var(--bg); padding: 18px 20px; }
+  .stack-col h3 { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 12px; font-weight: 500; }
+  .stack-col ul { list-style: none; margin: 0; padding: 0; }
+  .stack-col li { color: var(--muted); padding: 3px 0; font-size: 0.92rem; }
+  @media (max-width: 560px) { .stack-grid { grid-template-columns: 1fr; } }
+
+  footer { border-top: 1px solid var(--line); padding-block: 32px; font-family: var(--mono); font-size: 0.78rem; color: var(--faint); }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--fg); }
+</style>
+</head>
+
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="back" href="/">&larr; Kalvis</a>
+    <span class="kicker">Case study</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Agentic AI · interactive</p>
+    <h1>OpenClaw Pixel Office</h1>
+    <p class="lede">A pixel-art office where AI agents move around, react to the room, and talk back in plain language.</p>
+    <div class="meta-row">
+      <span class="pill">LLM agents</span>
+      <span class="pill">React + Vite</span>
+      <span class="pill">tile world</span>
+      <span class="pill">prompt design</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="/openclaw-pixel-office/" target="_blank" rel="noopener">Open the live app <span aria-hidden="true">&#8599;</span></a>
+      <a class="btn btn-ghost" href="https://gitlab.com/kalvis2" target="_blank" rel="noopener">More on GitLab <span aria-hidden="true">&#8599;</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <span class="h2-no">01</span>
+      <h2>The idea</h2>
+      <p>Most demos put a language model behind a chat box. I wanted to see it act inside a small world instead. OpenClaw Pixel Office is a tiny office rendered in 16 by 16 pixel tiles, with characters that are driven by a language model. They have a place to be, things around them to notice, and they can answer when you talk to them.</p>
+      <p>The goal was to learn the practical side of agents: how you turn a model into something that takes sensible actions in a live interface, not just a wall of text.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="h2-no">02</span>
+      <h2>How it works</h2>
+      <p>The app runs in the browser. The world holds the office layout, the tiles, and each agent with its position and state. On every turn an agent looks at what is around it, that view is turned into a prompt, the model decides what to do or say, and the result is applied back to the world and the chat. Then it repeats.</p>
+
+      <div class="flow">
+        <div class="node">
+          <div class="n-label"><b>UI and tile renderer</b> &middot; React + Vite</div>
+          <div class="n-desc">Draws the office from 16 by 16 tilesets and sprite characters, and handles input.</div>
+        </div>
+        <div class="connector"><span>&#8595;</span></div>
+        <div class="node">
+          <div class="n-label"><b>World state</b> &middot; agents, tiles, positions</div>
+          <div class="n-desc">The single source of truth: the map, each agent, and what has happened so far.</div>
+        </div>
+        <div class="connector"><span>&#8595;</span></div>
+        <div class="node">
+          <div class="n-label"><b>Agent loop</b> &middot; perceive, prompt, decide, act</div>
+          <div class="n-desc">Builds a focused prompt from what the agent can see, then applies the model's choice.</div>
+        </div>
+        <div class="connector"><span>&#8595;</span></div>
+        <div class="node">
+          <div class="n-label"><b>Language model</b> &middot; Claude API</div>
+          <div class="n-desc">Returns the next move or a reply in a shape the app can read back.</div>
+        </div>
+        <div class="connector"><span>&#8595;</span></div>
+        <div class="node">
+          <div class="n-label"><b>Dialogue</b> &middot; markdown chat</div>
+          <div class="n-desc">Replies are rendered as markdown so links and formatting come through cleanly.</div>
+        </div>
+        <p class="loop-note">the loop runs again on the next turn</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="h2-no">03</span>
+      <h2>The parts that took the work</h2>
+      <p><strong>Turning a view into a prompt.</strong> An agent should only reason about what it can actually see. I keep the prompt small and specific: where it is, what is nearby, who it is, and the recent history. A tight prompt gives steadier behaviour and keeps the calls cheap.</p>
+      <p><strong>Reading the model's answer back.</strong> Free text is easy to generate and hard to use. The model answers in a fixed shape so the app can tell a move from a line of dialogue and apply it without guessing. When an answer does not fit, the app falls back gracefully instead of breaking the scene.</p>
+      <p><strong>Keeping it responsive.</strong> Model calls take time, so the world keeps running and updates arrive when they are ready. The render loop and the thinking loop are kept separate, which is what makes the office feel alive rather than frozen between turns.</p>
+      <p><strong>State that stays consistent.</strong> Every change goes through one world state, so the picture on screen, the chat, and what each agent believes never drift apart.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="h2-no">04</span>
+      <h2>What it shows</h2>
+      <ul>
+        <li><strong>Agent design.</strong> A clean perceive, decide, act loop around a language model, not a one-shot prompt.</li>
+        <li><strong>Prompt engineering.</strong> Small, grounded prompts that produce reliable behaviour.</li>
+        <li><strong>Structured output.</strong> Getting usable, machine-readable answers out of a model and handling the cases where it slips.</li>
+        <li><strong>AI inside a real interface.</strong> Wiring a model into a live, rendering app with sensible timing and fallbacks.</li>
+        <li><strong>Product sense.</strong> Making the AI part feel calm and understandable, not a gimmick.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="h2-no">05</span>
+      <h2>Stack</h2>
+      <div class="stack-grid">
+        <div class="stack-col">
+          <h3>Frontend</h3>
+          <ul><li>React</li><li>Vite</li><li>Tile and sprite rendering</li><li>react-markdown</li></ul>
+        </div>
+        <div class="stack-col">
+          <h3>AI</h3>
+          <ul><li>Claude API</li><li>Prompt design</li><li>Structured replies</li><li>Agent loop</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="/openclaw-pixel-office/" target="_blank" rel="noopener">Open the live app</a> &nbsp;·&nbsp;
+    <a href="/">Back to kalvisan.lv</a>
+  </div>
+</footer>
+</body>
+</html>
